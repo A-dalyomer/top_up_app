@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:uae_top_up/src/feature/network/data/constants/const_api_paths.dart';
 
 import '../../domain/repository/api_request_repository.dart';
 import '../../domain/util/api_general_handler.dart';
@@ -17,7 +18,7 @@ class ApiRequestRepositoryImpl implements ApiRequestRepository {
   }) async {
     return await _makeRequest(
       request: () async => await apiClient.get(
-        Uri.parse(apiPath),
+        Uri.parse(ConstApiPaths.domainLink + apiPath),
         headers: headers,
       ),
       requestCodesHandler: (code) => requestCodesHandler?.call(code),
@@ -33,7 +34,7 @@ class ApiRequestRepositoryImpl implements ApiRequestRepository {
   }) async {
     return await _makeRequest(
       request: () async => await apiClient.post(
-        Uri.parse(apiPath),
+        Uri.parse(ConstApiPaths.domainLink + apiPath),
         headers: headers,
         body: jsonEncode(body),
       ),
