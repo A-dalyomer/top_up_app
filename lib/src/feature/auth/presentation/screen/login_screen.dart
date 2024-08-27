@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:uae_top_up/src/core/widget/action_button.dart';
+import 'package:uae_top_up/src/core/widget/loading_indicator.dart';
 import 'package:uae_top_up/src/feature/auth/presentation/provider/login_provider.dart';
 import 'package:uae_top_up/src/feature/localization/domain/util/app_localizations.dart';
 import 'package:uae_top_up/src/feature/user_management/presentation/provider/user_management_provider.dart';
@@ -54,13 +55,16 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 18.0),
-                      child: ActionButton(
-                        title: AppLocalizations.loginButton.tr(),
-                        onPressed: loginProvider.attemptLogin,
+                    if (!loginProvider.loading)
+                      const LoadingIndicator()
+                    else
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 18.0),
+                        child: ActionButton(
+                          title: AppLocalizations.loginButton.tr(),
+                          onPressed: loginProvider.attemptLogin,
+                        ),
                       ),
-                    ),
                   ],
                 ),
               ),
