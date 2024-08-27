@@ -27,7 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
           style: Theme.of(context).textTheme.headlineSmall,
         ),
       ),
-      body: Provider(
+      body: ChangeNotifierProvider(
         create: (context) => LoginProvider(
           loginUser: context.read<UserManagementProvider>().loginUser,
         ),
