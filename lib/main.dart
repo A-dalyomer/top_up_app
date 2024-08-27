@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
-void main() {
+import 'src/core/util/dependency_injection_manager.dart';
+
+void main() async {
+  await DIManager.initAppInjections();
   runApp(const MyApp());
 }
 
