@@ -1,0 +1,18 @@
+{
+  "localization_key": "Arabic",
+  "language_code": "ar",
+  "App_name": "شحن رصيد الإمارات",
+  "home_screen": "الصفحة الرئيسية",
+  "login_screen": "تسجيل الدخول",
+  "enter_password": "أدخل كلمة المرور",
+  "short_password": "كلمة المرور قصيرة جدًا",
+  "login_button": "تسجيل الدخول",
+  "user_balance": "الرصيد الحالي",
+  "remaining_allowed_balance": "إعادة شحن الرصيد الشهري المتبقي",
+  "beneficiary_max_reached": "لقد وصلت إلى الحد الأقصى المسموح به لمبلغ التحويل لهذا المستخدم",
+  "beneficiary_max_amount": "لا يمكنك إعادة الشحن إلا بمبلغ {amount} إلى {name}",
+  "recharge_now": "اشحن الآن",
+  "mobile_recharge": "إعادة شحن الهاتف المحمول",
+  "history": "تاريخ",
+  "recharge": "إعادة الشحن"
+}

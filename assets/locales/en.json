@@ -1,0 +1,18 @@
+{
+  "localization_key": "English",
+  "language_code": "en",
+  "App_name": "UAE Top-up",
+  "home_screen": "Home Screen",
+  "login_screen": "Login",
+  "enter_password": "Enter Password",
+  "short_password": "Password is too short",
+  "login_button": "Login",
+  "user_balance": "Current balance",
+  "remaining_allowed_balance": "Remaining monthly balance recharges",
+  "beneficiary_max_reached": "You have reacehd maximum allowed transfer amount for this user",
+  "beneficiary_max_amount": "You can only recharge with {amount} to {name}",
+  "recharge_now": "Recharge now",
+  "mobile_recharge": "Mobile Recharge",
+  "history": "History",
+  "recharge": "Recharge"
+}
