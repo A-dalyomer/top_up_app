@@ -4,7 +4,10 @@
   "App_name": "UAE Top-up",
   "home_screen": "Home Screen",
   "login_screen": "Login",
-  "enter_password": "Enter Password",
+  "login_screen_title": "Welcome Back!",
+  "phone_number_label": "Phone number",
+  "password_label": "Password",
+  "password_hint": "Enter Password",
   "short_password": "Password is too short",
   "login_button": "Login",
   "user_balance": "Current balance",
@@ -14,5 +17,9 @@
   "recharge_now": "Recharge now",
   "mobile_recharge": "Mobile Recharge",
   "history": "History",
-  "recharge": "Recharge"
+  "recharge": "Recharge",
+  "beneficiary_name": "Beneficiary name",
+  "save": "Save",
+  "add": "Add",
+  "add_balance": "Add balance"
 }

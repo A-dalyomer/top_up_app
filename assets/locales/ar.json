@@ -4,7 +4,10 @@
   "App_name": "شحن رصيد الإمارات",
   "home_screen": "الصفحة الرئيسية",
   "login_screen": "تسجيل الدخول",
-  "enter_password": "أدخل كلمة المرور",
+  "login_screen_title": "مرحبًا بعودتك!",
+  "phone_number_label": "رقم التليفون",
+  "password_label": "كلمة المرور",
+  "password_hint": "أدخل كلمة المرور",
   "short_password": "كلمة المرور قصيرة جدًا",
   "login_button": "تسجيل الدخول",
   "user_balance": "الرصيد الحالي",
@@ -14,5 +17,9 @@
   "recharge_now": "اشحن الآن",
   "mobile_recharge": "إعادة شحن الهاتف المحمول",
   "history": "تاريخ",
-  "recharge": "إعادة الشحن"
+  "recharge": "إعادة الشحن",
+  "beneficiary_name": "اسم المستفيد",
+  "save": "حفظ",
+  "add": "إضافة",
+  "add_balance": "شحن رصيد"
 }
