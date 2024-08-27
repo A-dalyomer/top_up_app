@@ -44,6 +44,34 @@ class _TopUpAppState extends State<TopUpApp> {
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
+          inputDecorationTheme: InputDecorationTheme(
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+            constraints: const BoxConstraints(minHeight: 64),
+            filled: true,
+          ),
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ButtonStyle(
+              backgroundColor: WidgetStateProperty.resolveWith<Color>(
+                (Set<WidgetState> states) {
+                  if (states.contains(WidgetState.disabled)) return Colors.grey;
+                  return Colors.redAccent;
+                },
+              ),
+              foregroundColor: const WidgetStatePropertyAll(Colors.white),
+              shape: WidgetStateProperty.resolveWith((states) {
+                return RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  side: BorderSide(
+                    color: states.contains(WidgetState.disabled)
+                        ? Colors.transparent
+                        : Colors.red,
+                  ),
+                );
+              }),
+            ),
+          ),
         ),
         home: Builder(
           builder: (context) {
