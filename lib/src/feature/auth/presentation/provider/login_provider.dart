@@ -26,5 +26,6 @@ class LoginProvider extends ChangeNotifier {
     notifyListeners();
     await loginUser(phoneNumber, password);
     loading = false;
+    notifyListeners();
   }
 }
