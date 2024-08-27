@@ -1,7 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:provider/provider.dart';
 import 'package:uae_top_up/src/core/extension/size_extensions.dart';
+import 'package:uae_top_up/src/feature/auth/presentation/provider/login_provider.dart';
 import 'package:uae_top_up/src/feature/localization/domain/util/app_localizations.dart';
 
 class LoginForm extends StatelessWidget {
@@ -23,7 +25,9 @@ class LoginForm extends StatelessWidget {
           style: Theme.of(context).textTheme.titleMedium,
         ),
         InternationalPhoneNumberInput(
-          onInputChanged: (value) {},
+          onInputChanged: (value) => onPhoneNumberChanged?.call(value),
+          isEnabled: !context.read<LoginProvider>().loading,
+          keyboardAction: TextInputAction.next,
           autoFocus: true,
           selectorConfig: const SelectorConfig(
             showFlags: true,
@@ -41,7 +45,10 @@ class LoginForm extends StatelessWidget {
           style: Theme.of(context).textTheme.titleMedium,
         ),
         TextFormField(
-          onChanged: (value) {},
+          onChanged: (value) => onPasswordChanged?.call(value),
+          enabled: !context.read<LoginProvider>().loading,
+          keyboardType: TextInputType.visiblePassword,
+          textInputAction: TextInputAction.done,
           decoration: InputDecoration(
             hintText: AppLocalizations.passwordHint.tr(),
           ),

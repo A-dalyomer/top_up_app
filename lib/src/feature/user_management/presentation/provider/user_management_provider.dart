@@ -20,4 +20,16 @@ class UserManagementProvider extends ChangeNotifier {
     finishedInitialization = true;
     notifyListeners();
   }
+
+  Future<void> loginUser(
+    String phoneNumber,
+    String password,
+  ) async {
+    User? newUser = await userManagementRepository.signInUser(phoneNumber);
+    if (newUser != null) {
+      await userManagementRepository.saveUser(newUser: newUser);
+      userExists = true;
+      notifyListeners();
+    }
+  }
 }
