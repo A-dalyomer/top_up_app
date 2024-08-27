@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 class APIRequestHandlers {
   static void requestException(http.Response response) {
     if (kDebugMode) {
-      print(response.toString());
+      print(response.body.toString());
     }
     switch (response.statusCode) {
       default:
