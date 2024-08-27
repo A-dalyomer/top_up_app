@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:uae_top_up/src/feature/local_storage/data/constants/const_storage_keys.dart';
-import 'package:uae_top_up/src/feature/local_storage/data/repository/local_storage_repository_impl.dart';
+import 'package:uae_top_up/src/feature/local_storage/domain/repository/local_storage_repository.dart';
 import 'package:uae_top_up/src/feature/network/data/constants/const_api_paths.dart';
 import 'package:uae_top_up/src/feature/network/domain/repository/api_request_repository.dart';
 import 'package:uae_top_up/src/feature/network/domain/util/api_parse_handler.dart';
@@ -20,7 +20,7 @@ class UserManagementRepositoryImpl implements UserManagementRepository {
   });
   final ApiRequestRepository apiRequestRepository;
   final TransactionRepository transactionRepository;
-  final LocalStorageRepositoryImpl localStorage;
+  final LocalStorageRepository localStorage;
 
   @override
   Future<bool> changeBalance(
