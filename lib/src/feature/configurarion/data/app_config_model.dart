@@ -18,4 +18,24 @@ class AppConfigModel extends AppConfig {
       transactionFee: json?['transaction_fee'] ?? 1,
     );
   }
+
+  factory AppConfigModel.fromEntity(AppConfig appConfig) {
+    return AppConfigModel(
+      maxActiveBeneficiaries: appConfig.maxActiveBeneficiaries,
+      receiverNonVerifiedMaxAmount: appConfig.receiverNonVerifiedMaxAmount,
+      receiverVerifiedMaxAmount: appConfig.receiverVerifiedMaxAmount,
+      senderMaxAmount: appConfig.senderMaxAmount,
+      transactionFee: appConfig.transactionFee,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> json = {};
+    json['max_active_beneficiaries'] = maxActiveBeneficiaries;
+    json['non_verified_max_amount'] = receiverNonVerifiedMaxAmount;
+    json['verified_max_amount'] = receiverVerifiedMaxAmount;
+    json['send_max_amount'] = senderMaxAmount;
+    json['transaction_fee'] = transactionFee;
+    return json;
+  }
 }
