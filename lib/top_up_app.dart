@@ -50,11 +50,7 @@ class _TopUpAppState extends State<TopUpApp> {
               return const InitializationScreen();
             }
             if (!context.read<UserManagementProvider>().userExists) {
-              return Scaffold(
-                appBar: AppBar(
-                  title: const Text("sign in screen"),
-                ),
-              );
+              return const LoginScreen();
             }
             return Scaffold(
               appBar: AppBar(
