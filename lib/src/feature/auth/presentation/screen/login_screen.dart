@@ -55,7 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                     ),
-                    if (!loginProvider.loading)
+                    if (loginProvider.loading)
                       const LoadingIndicator()
                     else
                       Padding(
