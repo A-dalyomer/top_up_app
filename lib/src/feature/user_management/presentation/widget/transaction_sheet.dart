@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:uae_top_up/src/core/constants/const_configs.dart';
 import 'package:uae_top_up/src/core/extension/size_extensions.dart';
 import 'package:uae_top_up/src/core/widget/action_button.dart';
 import 'package:uae_top_up/src/feature/localization/domain/util/app_localizations.dart';
@@ -50,11 +51,13 @@ class _TransactionSheetState extends State<TransactionSheet> {
             child: Stack(
               children: [
                 ListView.builder(
-                  itemCount: 10,
+                  itemCount: ConstConfigs.transactionOptions.length,
                   cacheExtent: 0,
                   addRepaintBoundaries: false,
                   padding: EdgeInsets.only(bottom: 0.07.height(context)),
                   itemBuilder: (context, index) {
+                    final int transactionOptionAmount =
+                        ConstConfigs.transactionOptions[index];
                     return Padding(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 8.0,
@@ -63,7 +66,7 @@ class _TransactionSheetState extends State<TransactionSheet> {
                       child: RadioListTile(
                         value: index,
                         groupValue: selectedIndex,
-                        title: Text('$index AED'),
+                        title: Text('$transactionOptionAmount AED'),
                         onChanged: (value) {
                           setState(() => selectedIndex = index);
                         },
