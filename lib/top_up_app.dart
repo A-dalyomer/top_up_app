@@ -75,10 +75,12 @@ class _TopUpAppState extends State<TopUpApp> {
         ),
         home: Builder(
           builder: (context) {
-            final AppConfig? appConfig =
-                context.watch<CoreConfigManager>().appConfig;
-            final userReady =
-                context.watch<UserManagementProvider>().finishedInitialization;
+            final AppConfig? appConfig = context.select(
+              (CoreConfigManager value) => value.appConfig,
+            );
+            final userReady = context.select(
+              (UserManagementProvider value) => value.finishedInitialization,
+            );
             if (!userReady || appConfig == null) {
               return const InitializationScreen();
             }
