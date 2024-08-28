@@ -47,6 +47,7 @@ class UserManagementProvider extends ChangeNotifier {
         await userManagementRepository.addBeneficiary(
       name: beneficiary.name,
       phoneNumber: beneficiary.phoneNumber,
+      senderPhoneNumber: user.phoneNumber,
     );
     if (addedBeneficiary != null) {
       await updateBeneficiaries(addedBeneficiary);

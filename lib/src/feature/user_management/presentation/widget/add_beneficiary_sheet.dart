@@ -55,6 +55,7 @@ class _AddBeneficiarySheetState extends State<AddBeneficiarySheet> {
           child: Column(
             children: [
               TextFormField(
+                onChanged: (value) => beneficiaryName = value,
                 decoration: InputDecoration(
                   hintText: AppLocalizations.beneficiaryName.tr(),
                 ),

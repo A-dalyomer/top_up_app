@@ -21,6 +21,7 @@ abstract class UserManagementRepository {
   Future<BeneficiaryModel?> addBeneficiary({
     required String name,
     required String phoneNumber,
+    required String senderPhoneNumber,
   });
 
   Future<bool> makeTransaction({

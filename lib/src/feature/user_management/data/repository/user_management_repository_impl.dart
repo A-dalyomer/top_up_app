@@ -46,6 +46,7 @@ class UserManagementRepositoryImpl implements UserManagementRepository {
   Future<BeneficiaryModel?> addBeneficiary({
     required String name,
     required String phoneNumber,
+    required String senderPhoneNumber,
   }) async {
     final Map<String, dynamic>? response =
         await apiRequestRepository.postRequest(
@@ -53,6 +54,7 @@ class UserManagementRepositoryImpl implements UserManagementRepository {
       body: {
         "name": name,
         "phone_number": phoneNumber,
+        "sender_phone_number": senderPhoneNumber,
       },
     );
     if (response == null) return null;
