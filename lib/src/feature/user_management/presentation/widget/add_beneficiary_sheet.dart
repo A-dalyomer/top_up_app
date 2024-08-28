@@ -1,8 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:uae_top_up/src/core/util/core_enums.dart';
-import 'package:uae_top_up/src/core/widget/action_button.dart';
-import 'package:uae_top_up/src/core/widget/loading_indicator.dart';
+import 'package:uae_top_up/src/core/widget/api_action_button.dart';
 import 'package:uae_top_up/src/core/widget/phone_number_field.dart';
 import 'package:uae_top_up/src/feature/localization/domain/util/app_localizations.dart';
 import 'package:uae_top_up/src/feature/user_management/domain/entity/beneficiary.dart';
@@ -78,23 +77,7 @@ class _AddBeneficiarySheetState extends State<AddBeneficiarySheet> {
                 enabled: true,
                 onChanged: (p0) => phoneNumber = p0.phoneNumber!,
               ),
-              switch (screenStates) {
-                ApiScreenStates.loading => const LoadingIndicator(),
-                ApiScreenStates.done || _ => Column(
-                    children: [
-                      if (screenStates == ApiScreenStates.error)
-                        Icon(
-                          Icons.error,
-                          size: 30,
-                          color: Theme.of(context).colorScheme.error,
-                        ),
-                      ActionButton(
-                        title: AppLocalizations.save,
-                        onPressed: save,
-                      ),
-                    ],
-                  ),
-              },
+              ApiActionButton(screenStates: screenStates, onTap: save),
             ],
           ),
         ),
