@@ -1,7 +1,7 @@
 import '../../domain/entity/transaction.dart';
 
 class TransactionModel extends Transaction {
-  TransactionModel({
+  const TransactionModel({
     required super.id,
     required super.amount,
     required super.sourceUserId,
