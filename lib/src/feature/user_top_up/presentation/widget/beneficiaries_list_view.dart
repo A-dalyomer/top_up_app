@@ -23,7 +23,8 @@ class BeneficiariesListView extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             itemCount: savedBeneficiaries.length,
             itemBuilder: (context, index) {
-              final Beneficiary beneficiary = savedBeneficiaries[index];
+              final Beneficiary beneficiary =
+                  savedBeneficiaries[savedBeneficiaries.length - 1 - index];
               return Padding(
                 padding: const EdgeInsets.symmetric(
                   vertical: 16.0,
