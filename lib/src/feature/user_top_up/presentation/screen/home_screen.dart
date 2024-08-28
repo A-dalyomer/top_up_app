@@ -5,6 +5,7 @@ import 'package:uae_top_up/src/core/widget/action_button.dart';
 import 'package:uae_top_up/src/feature/localization/domain/util/app_localizations.dart';
 import 'package:uae_top_up/src/feature/user_management/domain/util/user_actions.dart';
 import 'package:uae_top_up/src/feature/user_management/presentation/provider/user_management_provider.dart';
+import 'package:uae_top_up/src/feature/user_top_up/presentation/widget/beneficiaries_list_view.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -64,6 +65,7 @@ class HomeScreen extends StatelessWidget {
                         textAlign: TextAlign.center,
                       ),
                     ),
+                    const BeneficiariesListView(),
                     ActionButton(
                       title: AppLocalizations.add.tr(),
                       onPressed: () => showAddBeneficiarySheet(context),
