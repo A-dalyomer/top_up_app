@@ -12,7 +12,7 @@ class ActionButton extends StatelessWidget {
         Expanded(
           child: ElevatedButton(
             onPressed: onPressed,
-            child: Text(title),
+            child: FittedBox(child: Text(title)),
           ),
         ),
       ],
