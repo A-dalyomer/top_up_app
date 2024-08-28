@@ -30,7 +30,7 @@ class _AddBeneficiarySheetState extends State<AddBeneficiarySheet> {
       id: 0,
       name: beneficiaryName,
       phoneNumber: phoneNumber,
-      transactions: [],
+      transactions: const [],
     );
     bool added = await widget.onSave(newBeneficiary);
     if (added) {

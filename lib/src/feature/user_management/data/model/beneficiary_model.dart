@@ -3,7 +3,7 @@ import 'package:uae_top_up/src/feature/transaction/data/model/transaction_model.
 import '../../domain/entity/beneficiary.dart';
 
 class BeneficiaryModel extends Beneficiary {
-  BeneficiaryModel({
+  const BeneficiaryModel({
     required super.id,
     required super.name,
     required super.phoneNumber,
