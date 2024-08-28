@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:provider/provider.dart';
 import 'package:uae_top_up/src/core/extension/size_extensions.dart';
+import 'package:uae_top_up/src/core/widget/phone_number_field.dart';
 import 'package:uae_top_up/src/feature/auth/presentation/provider/login_provider.dart';
 import 'package:uae_top_up/src/feature/localization/domain/util/app_localizations.dart';
 
@@ -24,20 +25,9 @@ class LoginForm extends StatelessWidget {
           AppLocalizations.phoneNumberLabel.tr(),
           style: Theme.of(context).textTheme.titleMedium,
         ),
-        InternationalPhoneNumberInput(
-          onInputChanged: (value) => onPhoneNumberChanged?.call(value),
-          isEnabled: !context.read<LoginProvider>().loading,
-          keyboardAction: TextInputAction.next,
-          autoFocus: true,
-          selectorConfig: const SelectorConfig(
-            showFlags: true,
-            selectorType: PhoneInputSelectorType.DIALOG,
-            setSelectorButtonAsPrefixIcon: true,
-            leadingPadding: 24,
-            trailingSpace: false,
-          ),
-          initialValue: PhoneNumber(isoCode: "AE"),
-          autoValidateMode: AutovalidateMode.onUserInteraction,
+        PhoneNumberField(
+          onChanged: (value) => onPhoneNumberChanged?.call(value),
+          enabled: !context.read<LoginProvider>().loading,
         ),
         10.vS,
         Text(
