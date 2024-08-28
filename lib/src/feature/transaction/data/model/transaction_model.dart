@@ -5,7 +5,7 @@ class TransactionModel extends Transaction {
     required super.id,
     required super.amount,
     required super.sourceUserId,
-    required super.targetUserId,
+    required super.targetUserPhoneNumber,
   });
 
   factory TransactionModel.fromJson(Map<String, dynamic> json) {
@@ -13,7 +13,7 @@ class TransactionModel extends Transaction {
       id: json['id'],
       amount: json['amount'],
       sourceUserId: json['source_user_id'],
-      targetUserId: json['target_user_id'],
+      targetUserPhoneNumber: json['target_user_phone'],
     );
   }
 
@@ -22,7 +22,7 @@ class TransactionModel extends Transaction {
       id: transaction.id,
       amount: transaction.amount,
       sourceUserId: transaction.sourceUserId,
-      targetUserId: transaction.targetUserId,
+      targetUserPhoneNumber: transaction.targetUserPhoneNumber,
     );
   }
 
@@ -31,7 +31,7 @@ class TransactionModel extends Transaction {
     json['id'] = id;
     json['amount'] = amount;
     json['source_user_id'] = sourceUserId;
-    json['target_user_id'] = targetUserId;
+    json['target_user_phone'] = targetUserPhoneNumber;
     return json;
   }
 }

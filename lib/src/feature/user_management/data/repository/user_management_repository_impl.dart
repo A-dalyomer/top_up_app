@@ -5,6 +5,7 @@ import 'package:uae_top_up/src/feature/local_storage/domain/repository/local_sto
 import 'package:uae_top_up/src/feature/network/data/constants/const_api_paths.dart';
 import 'package:uae_top_up/src/feature/network/domain/repository/api_request_repository.dart';
 import 'package:uae_top_up/src/feature/network/domain/util/api_parse_handler.dart';
+import 'package:uae_top_up/src/feature/transaction/data/model/transaction_model.dart';
 import 'package:uae_top_up/src/feature/transaction/domain/repository/transaction_repository.dart';
 import 'package:uae_top_up/src/feature/user_management/data/model/beneficiary_model.dart';
 import 'package:uae_top_up/src/feature/user_management/data/model/user_model.dart';
@@ -67,14 +68,11 @@ class UserManagementRepositoryImpl implements UserManagementRepository {
   }
 
   @override
-  Future<bool> makeTransaction({
-    required double amount,
-    required int targetUserId,
-    required User currentUser,
+  Future<TransactionModel?> makeTransaction({
+    required TransactionModel transaction,
   }) async {
     return await transactionRepository.makeTransaction(
-      amount: amount,
-      targetUserId: targetUserId,
+      transaction: transaction,
     );
   }
 

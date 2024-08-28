@@ -1,3 +1,5 @@
+import 'package:uae_top_up/src/feature/transaction/data/model/transaction_model.dart';
+
 import '../../data/model/beneficiary_model.dart';
 import '../entity/user.dart';
 
@@ -24,9 +26,7 @@ abstract class UserManagementRepository {
     required String senderPhoneNumber,
   });
 
-  Future<bool> makeTransaction({
-    required double amount,
-    required int targetUserId,
-    required User currentUser,
+  Future<TransactionModel?> makeTransaction({
+    required TransactionModel transaction,
   });
 }
