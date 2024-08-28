@@ -6,8 +6,15 @@ import 'package:uae_top_up/src/feature/localization/domain/util/app_localization
 import 'package:uae_top_up/src/feature/user_management/domain/entity/beneficiary.dart';
 import 'package:uae_top_up/src/feature/user_management/presentation/provider/user_management_provider.dart';
 
-class BeneficiariesListView extends StatelessWidget {
+class BeneficiariesListView extends StatefulWidget {
   const BeneficiariesListView({super.key});
+
+  @override
+  State<BeneficiariesListView> createState() => _BeneficiariesListViewState();
+}
+
+class _BeneficiariesListViewState extends State<BeneficiariesListView> {
+  final ScrollController scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -16,10 +23,18 @@ class BeneficiariesListView extends StatelessWidget {
       builder: (context, savedBeneficiariesLength, child) {
         final savedBeneficiaries =
             context.read<UserManagementProvider>().user.beneficiaries;
+        if (scrollController.hasClients) {
+          scrollController.animateTo(
+            0,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.bounceIn,
+          );
+        }
         if (savedBeneficiaries.isEmpty) return const SizedBox.shrink();
         return SizedBox(
           height: 160,
           child: ListView.builder(
+            controller: scrollController,
             scrollDirection: Axis.horizontal,
             itemCount: savedBeneficiaries.length,
             itemBuilder: (context, index) {
