@@ -77,7 +77,11 @@ class _AddBeneficiarySheetState extends State<AddBeneficiarySheet> {
                 enabled: true,
                 onChanged: (p0) => phoneNumber = p0.phoneNumber!,
               ),
-              ApiActionButton(screenStates: screenStates, onTap: save),
+              ApiActionButton(
+                title: AppLocalizations.save,
+                screenStates: screenStates,
+                onPressed: save,
+              ),
             ],
           ),
         ),

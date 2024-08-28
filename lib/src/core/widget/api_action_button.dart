@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:uae_top_up/src/core/util/core_enums.dart';
-import 'package:uae_top_up/src/feature/localization/domain/util/app_localizations.dart';
 
 import 'action_button.dart';
 import 'loading_indicator.dart';
@@ -8,17 +7,20 @@ import 'loading_indicator.dart';
 class ApiActionButton extends StatelessWidget {
   const ApiActionButton({
     super.key,
+    required this.title,
     required this.screenStates,
-    required this.onTap,
+    required this.onPressed,
   });
+  final String title;
   final ApiScreenStates screenStates;
-  final VoidCallback onTap;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
     return switch (screenStates) {
       ApiScreenStates.loading => const LoadingIndicator(),
       ApiScreenStates.done || _ => Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             if (screenStates == ApiScreenStates.error)
               Icon(
@@ -27,8 +29,8 @@ class ApiActionButton extends StatelessWidget {
                 color: Theme.of(context).colorScheme.error,
               ),
             ActionButton(
-              title: AppLocalizations.save,
-              onPressed: onTap,
+              title: title,
+              onPressed: onPressed,
             ),
           ],
         ),
