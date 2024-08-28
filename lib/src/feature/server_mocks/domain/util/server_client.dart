@@ -8,8 +8,11 @@ import 'package:uae_top_up/src/feature/configurarion/data/app_config_model.dart'
 import 'package:uae_top_up/src/feature/configurarion/domain/entity/app_config.dart';
 import 'package:uae_top_up/src/feature/local_storage/data/constants/const_storage_keys.dart';
 import 'package:uae_top_up/src/feature/local_storage/domain/repository/local_storage_repository.dart';
+import 'package:uae_top_up/src/feature/transaction/data/model/transaction_model.dart';
+import 'package:uae_top_up/src/feature/transaction/domain/entity/transaction.dart';
 import 'package:uae_top_up/src/feature/user_management/data/model/beneficiary_model.dart';
 import 'package:uae_top_up/src/feature/user_management/data/model/user_model.dart';
+import 'package:uae_top_up/src/feature/user_management/domain/entity/user.dart';
 
 import '../../../network/data/constants/const_api_paths.dart';
 
@@ -59,6 +62,10 @@ class ServerClient {
           phoneNumber: phoneNumber!,
           beneficiaryName: beneficiaryName!,
         );
+      case ConstApiPaths.makeTransaction:
+        final TransactionModel newTransaction =
+            TransactionModel.fromJson(jsonDecode(request.body));
+        return await makeTransactionResponse(newTransaction: newTransaction);
       default:
         return http.Response(jsonEncode({"message": 'Not Found'}), 404);
     }
@@ -105,6 +112,46 @@ class ServerClient {
     await saveUsers(savedUsers);
     return http.Response(
       jsonEncode(newBeneficiary.toJson()),
+      200,
+    );
+  }
+
+  Future<http.Response> makeTransactionResponse({
+    required TransactionModel newTransaction,
+  }) async {
+    final savedUsers = await getSavedUsersList();
+    final senderUserIndex = savedUsers.indexWhere(
+      (element) => element.id == newTransaction.sourceUserId,
+    );
+    final senderUser = savedUsers[senderUserIndex];
+    if (senderUser.balance < newTransaction.amount + 1) {
+      return http.Response(
+        jsonEncode({"message": "Not enough balance"}),
+        410,
+      );
+    }
+    final double newUserBalance =
+        senderUser.balance - 1 - newTransaction.amount;
+    final debitedUser = senderUser.copyWith(balance: newUserBalance);
+    savedUsers[senderUserIndex] = UserModel.fromEntity(debitedUser);
+    await saveUsers(savedUsers);
+
+    final Transaction resultTransaction = newTransaction.copyWith(
+      id: senderUser.transactions.length,
+    );
+    final TransactionModel resultTransactionModel =
+        TransactionModel.fromEntity(resultTransaction);
+    senderUser.transactions.add(resultTransactionModel);
+    final beneficiaryIndex = senderUser.beneficiaries.indexWhere(
+      (element) =>
+          element.phoneNumber == resultTransaction.targetUserPhoneNumber,
+    );
+    senderUser.beneficiaries[beneficiaryIndex].transactions.add(
+      resultTransactionModel,
+    );
+    await saveUsers(savedUsers);
+    return http.Response(
+      jsonEncode(resultTransactionModel.toJson()),
       200,
     );
   }
