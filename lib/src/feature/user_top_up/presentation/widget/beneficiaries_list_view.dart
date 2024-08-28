@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:uae_top_up/src/feature/user_management/domain/entity/beneficiary.dart';
+import 'package:uae_top_up/src/feature/user_management/domain/util/user_actions.dart';
 import 'package:uae_top_up/src/feature/user_management/presentation/provider/user_management_provider.dart';
 
 import 'beneficiary_item.dart';
@@ -14,6 +15,10 @@ class BeneficiariesListView extends StatefulWidget {
 
 class _BeneficiariesListViewState extends State<BeneficiariesListView> {
   final ScrollController scrollController = ScrollController();
+
+  void showTransactionSheet(Beneficiary beneficiary) {
+    UserActions().showTransactionSheet(context, beneficiary);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +51,7 @@ class _BeneficiariesListViewState extends State<BeneficiariesListView> {
                 ),
                 child: BeneficiaryItem(
                   beneficiary: beneficiary,
-                  onButtonTap: () {},
+                  onButtonTap: () => showTransactionSheet(beneficiary),
                 ),
               );
             },
