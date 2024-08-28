@@ -77,6 +77,13 @@ class _TopUpAppState extends State<TopUpApp> {
               }),
             ),
           ),
+          listTileTheme: ListTileThemeData(
+            dense: true,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+              side: const BorderSide(color: Colors.redAccent),
+            ),
+          ),
         ),
         home: Builder(
           builder: (context) {
