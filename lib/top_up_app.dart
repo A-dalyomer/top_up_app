@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:uae_top_up/src/core/widget/initialization_screen.dart';
 import 'package:uae_top_up/src/feature/auth/presentation/screen/login_screen.dart';
+import 'package:uae_top_up/src/feature/localization/domain/util/app_localizations.dart';
+import 'package:uae_top_up/src/feature/user_top_up/presentation/screen/home_screen.dart';
 
 import 'src/core/util/dependency_injection_manager.dart';
 import 'src/feature/configurarion/domain/entity/app_config.dart';
@@ -37,12 +39,15 @@ class _TopUpAppState extends State<TopUpApp> {
         ),
       ],
       child: MaterialApp(
-        title: 'UAE Top-Up',
+        title: AppLocalizations.appName.tr(),
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,
         locale: context.locale,
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: Colors.deepPurple,
+            shadow: Colors.redAccent.withOpacity(0.1),
+          ),
           useMaterial3: true,
           inputDecorationTheme: InputDecorationTheme(
             border: OutlineInputBorder(
@@ -87,11 +92,7 @@ class _TopUpAppState extends State<TopUpApp> {
             if (!context.read<UserManagementProvider>().userExists) {
               return const LoginScreen();
             }
-            return Scaffold(
-              appBar: AppBar(
-                title: const Text("home screen"),
-              ),
-            );
+            return const HomeScreen();
           },
         ),
       ),

@@ -6,6 +6,7 @@ import 'package:uae_top_up/src/feature/network/data/constants/const_api_paths.da
 import 'package:uae_top_up/src/feature/network/domain/repository/api_request_repository.dart';
 import 'package:uae_top_up/src/feature/network/domain/util/api_parse_handler.dart';
 import 'package:uae_top_up/src/feature/transaction/domain/repository/transaction_repository.dart';
+import 'package:uae_top_up/src/feature/user_management/data/model/beneficiary_model.dart';
 import 'package:uae_top_up/src/feature/user_management/data/model/user_model.dart';
 
 import 'package:uae_top_up/src/feature/user_management/domain/entity/user.dart';
@@ -42,10 +43,9 @@ class UserManagementRepositoryImpl implements UserManagementRepository {
   }
 
   @override
-  Future<bool> addBeneficiary({
+  Future<BeneficiaryModel?> addBeneficiary({
     required String name,
     required String phoneNumber,
-    required User currentUser,
   }) async {
     final Map<String, dynamic>? response =
         await apiRequestRepository.postRequest(
@@ -55,7 +55,13 @@ class UserManagementRepositoryImpl implements UserManagementRepository {
         "phone_number": phoneNumber,
       },
     );
-    return (response?['success'] ?? false) == true;
+    if (response == null) return null;
+    try {
+      return BeneficiaryModel.fromJson(response);
+    } catch (exception) {
+      APIParseHandlers.handleModelParseException(exception);
+      return null;
+    }
   }
 
   @override

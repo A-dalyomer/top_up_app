@@ -19,6 +19,8 @@ class AppLocalizations {
   static String history = "history";
   static String recharge = "recharge";
   static String beneficiaryName = "beneficiary_name";
+  static String fieldRequired = "field_required";
+  static String longName = "long_name";
   static String save = "save";
   static String add = "add";
   static String addBalance = "add_balance";

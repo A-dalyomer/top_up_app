@@ -1,3 +1,4 @@
+import '../../data/model/beneficiary_model.dart';
 import '../entity/user.dart';
 
 enum UserBalanceChangeTypes { add, debit }
@@ -17,10 +18,9 @@ abstract class UserManagementRepository {
     required UserBalanceChangeTypes changeType,
   });
 
-  Future<bool> addBeneficiary({
+  Future<BeneficiaryModel?> addBeneficiary({
     required String name,
     required String phoneNumber,
-    required User currentUser,
   });
 
   Future<bool> makeTransaction({

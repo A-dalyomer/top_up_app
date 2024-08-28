@@ -19,6 +19,8 @@
   "history": "History",
   "recharge": "Recharge",
   "beneficiary_name": "Beneficiary name",
+  "field_required": "Field Required",
+  "long_name": "Too long name",
   "save": "Save",
   "add": "Add",
   "add_balance": "Add balance"

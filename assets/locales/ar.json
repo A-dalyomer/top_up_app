@@ -19,6 +19,8 @@
   "history": "تاريخ",
   "recharge": "إعادة الشحن",
   "beneficiary_name": "اسم المستفيد",
+  "field_required": "الحقل مطلوب",
+  "long_name": "الاسم طويل جداً",
   "save": "حفظ",
   "add": "إضافة",
   "add_balance": "شحن رصيد"

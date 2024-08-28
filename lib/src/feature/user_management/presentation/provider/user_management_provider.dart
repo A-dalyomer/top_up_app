@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:uae_top_up/src/feature/user_management/data/model/beneficiary_model.dart';
+import 'package:uae_top_up/src/feature/user_management/domain/entity/beneficiary.dart';
 
 import '../../domain/entity/user.dart';
 import '../../domain/repository/user_management_repository.dart';
@@ -37,5 +39,23 @@ class UserManagementProvider extends ChangeNotifier {
     await userManagementRepository.removeUser();
     userExists = false;
     notifyListeners();
+  }
+
+  Future<bool> addBeneficiary(Beneficiary beneficiary) async {
+    BeneficiaryModel? addedBeneficiary =
+        await userManagementRepository.addBeneficiary(
+      name: beneficiary.name,
+      phoneNumber: beneficiary.phoneNumber,
+    );
+    if (addedBeneficiary != null) {
+      await updateBeneficiaries(addedBeneficiary);
+      notifyListeners();
+    }
+    return addedBeneficiary != null;
+  }
+
+  Future<void> updateBeneficiaries(BeneficiaryModel newBeneficiary) async {
+    user.beneficiaries.add(newBeneficiary);
+    await userManagementRepository.saveUser(newUser: user);
   }
 }
