@@ -11,9 +11,11 @@ class BeneficiariesListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Selector<UserManagementProvider, List<Beneficiary>>(
-      selector: (context, provider) => provider.user.beneficiaries,
-      builder: (context, savedBeneficiaries, child) {
+    return Selector<UserManagementProvider, int>(
+      selector: (context, provider) => provider.user.beneficiaries.length,
+      builder: (context, savedBeneficiariesLength, child) {
+        final savedBeneficiaries =
+            context.read<UserManagementProvider>().user.beneficiaries;
         if (savedBeneficiaries.isEmpty) return const SizedBox.shrink();
         return SizedBox(
           height: 160,
