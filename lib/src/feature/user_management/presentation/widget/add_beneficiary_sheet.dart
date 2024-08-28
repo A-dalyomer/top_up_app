@@ -35,6 +35,9 @@ class _AddBeneficiarySheetState extends State<AddBeneficiarySheet> {
     bool added = await widget.onSave(newBeneficiary);
     if (added) {
       setState(() => screenStates = ApiScreenStates.done);
+      if (mounted) {
+        Navigator.of(context).pop();
+      }
     } else {
       setState(() => screenStates = ApiScreenStates.error);
     }
