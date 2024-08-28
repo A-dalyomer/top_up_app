@@ -30,6 +30,7 @@ class UserManagementProvider extends ChangeNotifier {
     User? newUser = await userManagementRepository.signInUser(phoneNumber);
     if (newUser != null) {
       await userManagementRepository.saveUser(newUser: newUser);
+      user = newUser;
       userExists = true;
       notifyListeners();
     }
