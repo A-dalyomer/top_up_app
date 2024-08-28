@@ -93,10 +93,13 @@ class _TopUpAppState extends State<TopUpApp> {
             final userReady = context.select(
               (UserManagementProvider value) => value.finishedInitialization,
             );
+            final userExists = context.select(
+              (UserManagementProvider value) => value.userExists,
+            );
             if (!userReady || appConfig == null) {
               return const InitializationScreen();
             }
-            if (!context.read<UserManagementProvider>().userExists) {
+            if (!userExists) {
               return const LoginScreen();
             }
             return const HomeScreen();
