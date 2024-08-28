@@ -5,15 +5,15 @@ import 'package:uae_top_up/src/core/widget/action_button.dart';
 import 'package:uae_top_up/src/feature/localization/domain/util/app_localizations.dart';
 import 'package:uae_top_up/src/feature/user_management/domain/entity/beneficiary.dart';
 
-class RechargeBalanceSheet extends StatefulWidget {
-  const RechargeBalanceSheet({super.key, required this.beneficiary});
+class TransactionSheet extends StatefulWidget {
+  const TransactionSheet({super.key, required this.beneficiary});
   final Beneficiary beneficiary;
 
   @override
-  State<RechargeBalanceSheet> createState() => _RechargeBalanceSheetState();
+  State<TransactionSheet> createState() => _TransactionSheetState();
 }
 
-class _RechargeBalanceSheetState extends State<RechargeBalanceSheet> {
+class _TransactionSheetState extends State<TransactionSheet> {
   int selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
