@@ -105,4 +105,9 @@ class UserManagementRepositoryImpl implements UserManagementRepository {
       return null;
     }
   }
+
+  @override
+  Future<void> removeUser() async {
+    await localStorage.removeValue(ConstStorageKeys.userData);
+  }
 }

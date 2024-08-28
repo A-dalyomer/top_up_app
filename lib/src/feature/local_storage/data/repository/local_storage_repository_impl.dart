@@ -15,4 +15,9 @@ class LocalStorageRepositoryImpl implements LocalStorageRepository {
   Future<void> writeValue(String valueKey, String value) async {
     return await storageClient.write(key: valueKey, value: value);
   }
+
+  @override
+  Future<void> removeValue(String valueKey) async {
+    return await storageClient.delete(key: valueKey);
+  }
 }

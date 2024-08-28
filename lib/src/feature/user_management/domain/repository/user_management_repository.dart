@@ -9,6 +9,8 @@ abstract class UserManagementRepository {
 
   Future<void> saveUser({required User newUser});
 
+  Future<void> removeUser();
+
   Future<bool> changeBalance(
     double amount, {
     required User currentUser,

@@ -32,4 +32,10 @@ class UserManagementProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  Future<void> signOutUser() async {
+    await userManagementRepository.removeUser();
+    userExists = false;
+    notifyListeners();
+  }
 }
