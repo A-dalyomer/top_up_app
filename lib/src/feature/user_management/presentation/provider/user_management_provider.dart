@@ -169,10 +169,14 @@ class UserManagementProvider extends ChangeNotifier {
       appConfig: appConfig,
     );
     if (exceedsBeneficiaryTransactions) {
-      Dialogs().showMessageDialog(
-        context,
-        AppLocalizations.beneficiaryMaxReached,
+      String message = transactionChecks.handleBeneficiaryMaxTransaction(
+        targetUserPhoneNumber: transaction.targetUserPhoneNumber,
+        dateTime: transaction.dateTime,
+        appConfig: appConfig,
+        beneficiaries: user.beneficiaries,
+        userVerified: user.isVerified,
       );
+      Dialogs().showMessageDialog(context, message);
       return false;
     }
 

@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:uae_top_up/src/feature/configuration/domain/entity/app_config.dart';
+import 'package:uae_top_up/src/feature/localization/domain/util/app_localizations.dart';
 import 'package:uae_top_up/src/feature/transaction/domain/entity/transaction.dart';
 import 'package:uae_top_up/src/feature/user_management/domain/entity/beneficiary.dart';
 
@@ -81,5 +83,41 @@ class TransactionChecks {
       }
     }
     return totalBeneficiaryMonthTransactions;
+  }
+
+  String handleBeneficiaryMaxTransaction({
+    required String targetUserPhoneNumber,
+    required DateTime dateTime,
+    required AppConfig appConfig,
+    required List<Beneficiary> beneficiaries,
+    required bool userVerified,
+  }) {
+    double beneficiaryMonthTotalAmount = getTotalBeneficiaryTransactions(
+      savedUserBeneficiaries: beneficiaries,
+      targetUserPhoneNumber: targetUserPhoneNumber,
+      transactionDateMonth: dateTime,
+    );
+
+    late final double availableAmount;
+    if (userVerified) {
+      availableAmount =
+          appConfig.receiverVerifiedMaxAmount - beneficiaryMonthTotalAmount;
+    } else {
+      availableAmount =
+          appConfig.receiverNonVerifiedMaxAmount - beneficiaryMonthTotalAmount;
+    }
+
+    late final String beneficiaryLimitMessage;
+    if (availableAmount < 5) {
+      beneficiaryLimitMessage = AppLocalizations.beneficiaryMaxReached.tr();
+    } else {
+      beneficiaryLimitMessage = AppLocalizations.beneficiaryMaxAmount.tr(
+        namedArgs: {
+          "amount": availableAmount.toString(),
+          "name": targetUserPhoneNumber,
+        },
+      );
+    }
+    return beneficiaryLimitMessage;
   }
 }
