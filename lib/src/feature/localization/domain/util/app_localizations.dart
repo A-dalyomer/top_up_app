@@ -1,7 +1,8 @@
 class AppLocalizations {
   static String localizationKey = "localization_key";
   static String languageCode = "language_code";
-  static String appName = "App_name";
+  static String appName = "app_name";
+  static String appLanguage = "app_language";
   static String homeScreen = "home_screen";
   static String loginScreen = "login_screen";
   static String loginScreenTitle = "login_screen_title";
@@ -24,4 +25,8 @@ class AppLocalizations {
   static String save = "save";
   static String add = "add";
   static String addBalance = "add_balance";
+  static String addBeneficiary = "add_beneficiary";
+  static String transactionHistoryEmpty = "transaction_history_empty";
+  static String signOut = "sign_out";
+  static String darkMode = "dark_mode";
 }

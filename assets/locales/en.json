@@ -1,7 +1,8 @@
 {
   "localization_key": "English",
   "language_code": "en",
-  "App_name": "UAE Top-up",
+  "app_name": "UAE Top-up",
+  "app_language": "App language",
   "home_screen": "Home Screen",
   "login_screen": "Login",
   "login_screen_title": "Welcome Back!",
@@ -23,5 +24,9 @@
   "long_name": "Too long name",
   "save": "Save",
   "add": "Add",
-  "add_balance": "Add balance"
+  "add_balance": "Add balance",
+  "add_beneficiary": "Add Beneficiary",
+  "transaction_history_empty": "Your previous transactions will appear here",
+  "sign_out": "Sign out",
+  "dark_mode": "Dark mode"
 }

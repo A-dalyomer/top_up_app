@@ -1,7 +1,8 @@
 {
   "localization_key": "Arabic",
   "language_code": "ar",
-  "App_name": "شحن رصيد الإمارات",
+  "app_name": "شحن رصيد الإمارات",
+  "app_language": "لغة التطبيق",
   "home_screen": "الصفحة الرئيسية",
   "login_screen": "تسجيل الدخول",
   "login_screen_title": "مرحبًا بعودتك!",
@@ -23,5 +24,9 @@
   "long_name": "الاسم طويل جداً",
   "save": "حفظ",
   "add": "إضافة",
-  "add_balance": "شحن رصيد"
+  "add_balance": "شحن رصيد",
+  "add_beneficiary": "إضافة مستفيد",
+  "transaction_history_empty": "ستظهر معاملاتك السابقة هنا",
+  "sign_out": "تسجيل الخروج",
+  "dark_mode": "الوضع المظلم"
 }
