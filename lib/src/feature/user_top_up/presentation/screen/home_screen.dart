@@ -41,40 +41,36 @@ class HomeScreen extends StatelessWidget {
         ],
       ),
       body: SingleChildScrollView(
-        child: Consumer<UserManagementProvider>(
-          builder: (context, userProvider, child) {
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Center(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Selector<UserManagementProvider, double>(
-                      selector: (context, provider) => provider.user.balance,
-                      builder: (context, userBalance, child) => Text.rich(
-                        TextSpan(children: [
-                          TextSpan(
-                            text: '${AppLocalizations.userBalance.tr()}: ',
-                            style: Theme.of(context).textTheme.titleLarge,
-                          ),
-                          TextSpan(
-                            text: userBalance.toStringAsFixed(0),
-                            style: Theme.of(context).textTheme.titleLarge,
-                          ),
-                        ]),
-                        textAlign: TextAlign.center,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Center(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Selector<UserManagementProvider, double>(
+                  selector: (context, provider) => provider.user.balance,
+                  builder: (context, userBalance, child) => Text.rich(
+                    TextSpan(children: [
+                      TextSpan(
+                        text: '${AppLocalizations.userBalance.tr()}: ',
+                        style: Theme.of(context).textTheme.titleLarge,
                       ),
-                    ),
-                    const BeneficiariesListView(),
-                    ActionButton(
-                      title: AppLocalizations.add.tr(),
-                      onPressed: () => showAddBeneficiarySheet(context),
-                    ),
-                  ],
+                      TextSpan(
+                        text: userBalance.toStringAsFixed(0),
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                    ]),
+                    textAlign: TextAlign.center,
+                  ),
                 ),
-              ),
-            );
-          },
+                const BeneficiariesListView(),
+                ActionButton(
+                  title: AppLocalizations.add.tr(),
+                  onPressed: () => showAddBeneficiarySheet(context),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
