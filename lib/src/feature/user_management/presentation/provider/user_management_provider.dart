@@ -107,7 +107,7 @@ class UserManagementProvider extends ChangeNotifier {
     );
     bool canMakeTransaction = checkTransactionPossible(tempTransaction);
     if (!canMakeTransaction) return false;
-    debitUserBalance(amount);
+    debitUserBalance(amount + 1);
     TransactionModel? newTransaction = await userManagementRepository
         .makeTransaction(transaction: tempTransaction);
     if (newTransaction != null) {
@@ -117,7 +117,7 @@ class UserManagementProvider extends ChangeNotifier {
       );
       notifyListeners();
     } else {
-      debitUserBalance(-amount);
+      debitUserBalance(-(amount + 1));
     }
     return newTransaction != null;
   }
