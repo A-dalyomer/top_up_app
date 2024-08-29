@@ -6,11 +6,13 @@ class Transaction extends Equatable {
     required this.amount,
     required this.sourceUserId,
     required this.targetUserPhoneNumber,
+    required this.dateTime,
   });
   final int id;
   final double amount;
   final int sourceUserId;
   final String targetUserPhoneNumber;
+  final DateTime dateTime;
 
   @override
   List<Object?> get props => [id, amount, sourceUserId, targetUserPhoneNumber];
@@ -22,6 +24,7 @@ extension UserEntityExtensions on Transaction {
     double? amount,
     int? sourceUserId,
     String? targetUserPhoneNumber,
+    DateTime? dateTime,
   }) {
     return Transaction(
       id: id ?? this.id,
@@ -29,6 +32,7 @@ extension UserEntityExtensions on Transaction {
       sourceUserId: sourceUserId ?? this.sourceUserId,
       targetUserPhoneNumber:
           targetUserPhoneNumber ?? this.targetUserPhoneNumber,
+      dateTime: dateTime ?? this.dateTime,
     );
   }
 }

@@ -6,6 +6,7 @@ class TransactionModel extends Transaction {
     required super.amount,
     required super.sourceUserId,
     required super.targetUserPhoneNumber,
+    required super.dateTime,
   });
 
   factory TransactionModel.fromJson(Map<String, dynamic> json) {
@@ -14,6 +15,9 @@ class TransactionModel extends Transaction {
       amount: json['amount'],
       sourceUserId: json['source_user_id'],
       targetUserPhoneNumber: json['target_user_phone'],
+      dateTime: DateTime.parse(
+        json['date_time'] ?? DateTime.now().toString(),
+      ),
     );
   }
 
@@ -23,6 +27,7 @@ class TransactionModel extends Transaction {
       amount: transaction.amount,
       sourceUserId: transaction.sourceUserId,
       targetUserPhoneNumber: transaction.targetUserPhoneNumber,
+      dateTime: transaction.dateTime,
     );
   }
 
