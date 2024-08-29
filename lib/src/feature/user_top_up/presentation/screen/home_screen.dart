@@ -52,7 +52,7 @@ class HomeScreen extends StatelessWidget {
                   const BalanceView(),
                   const BeneficiariesListView(),
                   ActionButton(
-                    title: AppLocalizations.add.tr(),
+                    title: AppLocalizations.addBeneficiary.tr(),
                     onPressed: () => showAddBeneficiarySheet(context),
                   ),
                 ],
