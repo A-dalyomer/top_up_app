@@ -37,6 +37,7 @@ class TransactionModel extends Transaction {
     json['amount'] = amount;
     json['source_user_id'] = sourceUserId;
     json['target_user_phone'] = targetUserPhoneNumber;
+    json['date_time'] = dateTime.toString();
     return json;
   }
 }

@@ -138,6 +138,7 @@ class ServerClient {
 
     final Transaction resultTransaction = newTransaction.copyWith(
       id: senderUser.transactions.length,
+      dateTime: DateTime.now(),
     );
     final TransactionModel resultTransactionModel =
         TransactionModel.fromEntity(resultTransaction);
