@@ -41,22 +41,23 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Center(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const BalanceView(),
-                const BeneficiariesListView(),
-                ActionButton(
-                  title: AppLocalizations.add.tr(),
-                  onPressed: () => showAddBeneficiarySheet(context),
-                ),
-              ],
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: CustomScrollView(
+          slivers: [
+            SliverList(
+              delegate: SliverChildListDelegate(
+                [
+                  const BalanceView(),
+                  const BeneficiariesListView(),
+                  ActionButton(
+                    title: AppLocalizations.add.tr(),
+                    onPressed: () => showAddBeneficiarySheet(context),
+                  ),
+                ],
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );
