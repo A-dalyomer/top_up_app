@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:uae_top_up/src/feature/configurarion/domain/entity/app_config.dart';
-import 'package:uae_top_up/src/feature/configurarion/domain/util/core_config_manager.dart';
+import 'package:uae_top_up/src/feature/configuration/domain/entity/app_config.dart';
+import 'package:uae_top_up/src/feature/configuration/domain/util/core_config_manager.dart';
 import 'package:uae_top_up/src/feature/transaction/data/model/transaction_model.dart';
 import 'package:uae_top_up/src/feature/user_management/data/model/beneficiary_model.dart';
 import 'package:uae_top_up/src/feature/user_management/domain/entity/beneficiary.dart';

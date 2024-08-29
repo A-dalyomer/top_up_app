@@ -1,4 +1,4 @@
-import 'package:uae_top_up/src/feature/configurarion/domain/entity/app_config.dart';
+import 'package:uae_top_up/src/feature/configuration/domain/entity/app_config.dart';
 import 'package:uae_top_up/src/feature/transaction/domain/entity/transaction.dart';
 import 'package:uae_top_up/src/feature/user_management/domain/entity/beneficiary.dart';
 

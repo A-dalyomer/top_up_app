@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:uae_top_up/src/core/widget/initialization_screen.dart';
 import 'package:uae_top_up/src/feature/auth/presentation/screen/login_screen.dart';
-import 'package:uae_top_up/src/feature/configurarion/presentation/provider/settings_provider.dart';
+import 'package:uae_top_up/src/feature/configuration/presentation/provider/settings_provider.dart';
 import 'package:uae_top_up/src/feature/localization/domain/util/app_localizations.dart';
 import 'package:uae_top_up/src/feature/user_top_up/presentation/screen/home_screen.dart';
 
-import 'src/feature/configurarion/domain/entity/app_config.dart';
-import 'src/feature/configurarion/domain/util/core_config_manager.dart';
+import 'src/feature/configuration/domain/entity/app_config.dart';
+import 'src/feature/configuration/domain/util/core_config_manager.dart';
 import 'src/feature/user_management/presentation/provider/user_management_provider.dart';
 
 class TopUpApp extends StatefulWidget {
