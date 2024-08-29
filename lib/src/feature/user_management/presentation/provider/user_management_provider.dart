@@ -109,12 +109,16 @@ class UserManagementProvider extends ChangeNotifier {
       targetUserPhoneNumber: beneficiary.phoneNumber,
       dateTime: DateTime.now(),
     );
-    bool canMakeTransaction =
-        checkTransactionPossible(tempTransaction, context);
+    bool canMakeTransaction = checkTransactionPossible(
+      tempTransaction,
+      context,
+    );
     if (!canMakeTransaction) return false;
     debitUserBalance(amount + 1);
-    TransactionModel? newTransaction = await userManagementRepository
-        .makeTransaction(transaction: tempTransaction);
+    TransactionModel? newTransaction =
+        await userManagementRepository.makeTransaction(
+      transaction: tempTransaction,
+    );
     if (newTransaction != null) {
       await updateTransactions(
         beneficiary: beneficiary,
