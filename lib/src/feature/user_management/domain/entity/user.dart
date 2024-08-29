@@ -1,9 +1,10 @@
+import 'package:equatable/equatable.dart';
 import 'package:uae_top_up/src/feature/transaction/domain/entity/transaction.dart';
 
 import 'beneficiary.dart';
 
-class User {
-  User({
+class User extends Equatable {
+  const User({
     required this.id,
     required this.name,
     required this.phoneNumber,
@@ -21,6 +22,18 @@ class User {
   final double monthlyTopUps;
   final List<Beneficiary> beneficiaries;
   final List<Transaction> transactions;
+
+  @override
+  List<Object?> get props => [
+        id,
+        name,
+        phoneNumber,
+        isVerified,
+        balance,
+        monthlyTopUps,
+        beneficiaries.length,
+        transactions.length,
+      ];
 }
 
 extension UserEntityExtensions on User {

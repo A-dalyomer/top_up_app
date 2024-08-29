@@ -226,8 +226,8 @@ class ServerClient {
       isVerified: true,
       balance: 2000,
       monthlyTopUps: 0,
-      beneficiaries: [],
-      transactions: [],
+      beneficiaries: const [],
+      transactions: const [],
     );
     savedUsers.add(resultUser);
     await saveUsers(savedUsers);

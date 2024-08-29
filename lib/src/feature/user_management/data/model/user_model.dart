@@ -4,7 +4,7 @@ import '../../domain/entity/user.dart';
 import 'beneficiary_model.dart';
 
 class UserModel extends User {
-  UserModel({
+  const UserModel({
     required super.id,
     required super.name,
     required super.phoneNumber,
