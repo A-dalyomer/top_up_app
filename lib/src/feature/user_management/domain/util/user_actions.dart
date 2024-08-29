@@ -34,6 +34,7 @@ class UserActions {
               context.read<UserManagementProvider>().makeTransaction(
                     beneficiary: beneficiary,
                     amount: transactionAmount,
+                    context: context,
                   ),
         );
       },
