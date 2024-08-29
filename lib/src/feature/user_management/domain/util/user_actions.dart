@@ -30,6 +30,11 @@ class UserActions {
       builder: (context) {
         return TransactionSheet(
           beneficiary: beneficiary,
+          onRechargePress: (transactionAmount) =>
+              context.read<UserManagementProvider>().makeTransaction(
+                    beneficiary: beneficiary,
+                    amount: transactionAmount,
+                  ),
         );
       },
     );
