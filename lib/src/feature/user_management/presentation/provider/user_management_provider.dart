@@ -121,7 +121,7 @@ class UserManagementProvider extends ChangeNotifier {
       appConfig: appConfig,
     );
     if (!canMakeTransaction) return false;
-    debitUserBalance(amount + 1);
+    debitUserBalance(amount + appConfig.transactionFee);
     TransactionModel? newTransaction =
         await userManagementRepository.makeTransaction(
       transaction: tempTransaction,
@@ -133,7 +133,7 @@ class UserManagementProvider extends ChangeNotifier {
       );
       notifyListeners();
     } else {
-      debitUserBalance(-(amount + 1));
+      debitUserBalance(-(amount + appConfig.transactionFee));
     }
     return newTransaction != null;
   }

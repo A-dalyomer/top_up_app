@@ -22,6 +22,7 @@ class TransactionChecks {
     bool hasEnoughBalance = checkEnoughBalance(
       userBalance: user.balance,
       transactionAmount: transaction.amount,
+      transactionFee: appConfig.transactionFee,
     );
     if (!hasEnoughBalance) {
       dialogs.showMessageDialog(context, AppLocalizations.noEnoughBalance);
@@ -65,8 +66,9 @@ class TransactionChecks {
   bool checkEnoughBalance({
     required double userBalance,
     required double transactionAmount,
+    required int transactionFee,
   }) {
-    if (userBalance < transactionAmount + 1) {
+    if (userBalance < transactionAmount + transactionFee) {
       return false;
     }
     return true;
