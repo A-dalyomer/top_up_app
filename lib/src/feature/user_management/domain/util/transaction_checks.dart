@@ -94,7 +94,8 @@ class TransactionChecks {
   ) {
     double totalMonthTransactions = 0;
     for (var savedTransaction in savedUserTransaction) {
-      if (savedTransaction.dateTime.month == transactionDateMonth.month) {
+      if (savedTransaction.dateTime.month == transactionDateMonth.month &&
+          savedTransaction.dateTime.year == transactionDateMonth.year) {
         totalMonthTransactions += savedTransaction.amount;
       }
     }
@@ -137,7 +138,9 @@ class TransactionChecks {
     double totalBeneficiaryMonthTransactions = 0;
     for (var savedBeneficiaryTransaction in targetBeneficiary.transactions) {
       if (savedBeneficiaryTransaction.dateTime.month ==
-          transactionDateMonth.month) {
+              transactionDateMonth.month &&
+          savedBeneficiaryTransaction.dateTime.year ==
+              transactionDateMonth.year) {
         totalBeneficiaryMonthTransactions += savedBeneficiaryTransaction.amount;
       }
     }
