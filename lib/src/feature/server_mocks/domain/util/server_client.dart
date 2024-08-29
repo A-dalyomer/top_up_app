@@ -12,7 +12,9 @@ import 'package:uae_top_up/src/feature/transaction/data/model/transaction_model.
 import 'package:uae_top_up/src/feature/transaction/domain/entity/transaction.dart';
 import 'package:uae_top_up/src/feature/user_management/data/model/beneficiary_model.dart';
 import 'package:uae_top_up/src/feature/user_management/data/model/user_model.dart';
+import 'package:uae_top_up/src/feature/user_management/domain/entity/beneficiary.dart';
 import 'package:uae_top_up/src/feature/user_management/domain/entity/user.dart';
+import 'package:uae_top_up/src/feature/user_management/domain/util/transaction_checks.dart';
 
 import '../../../network/data/constants/const_api_paths.dart';
 
@@ -72,6 +74,15 @@ class ServerClient {
   }
 
   http.Response appConfigResponse() {
+    final configModel = mockConfigs();
+
+    return http.Response(
+      jsonEncode(configModel.toJson()),
+      200,
+    );
+  }
+
+  AppConfigModel mockConfigs() {
     final AppConfig config = AppConfig(
       maxActiveBeneficiaries: 5,
       receiverNonVerifiedMaxAmount: 500,
@@ -79,12 +90,7 @@ class ServerClient {
       senderMaxAmount: 3000,
       transactionFee: 1,
     );
-    final configModel = AppConfigModel.fromEntity(config);
-
-    return http.Response(
-      jsonEncode(configModel.toJson()),
-      200,
-    );
+    return AppConfigModel.fromEntity(config);
   }
 
   Future<http.Response> addBeneficiaryResponse({
@@ -140,6 +146,20 @@ class ServerClient {
       id: senderUser.transactions.length,
       dateTime: DateTime.now(),
     );
+
+    bool canMakeTransaction = checkTransactionPossible(
+      resultTransaction,
+      userTransactions: senderUser.transactions,
+      userBeneficiaries: senderUser.beneficiaries,
+      userVerified: senderUser.isVerified,
+    );
+    if (!canMakeTransaction) {
+      return http.Response(
+        jsonEncode({"message": "Transaction not possible"}),
+        411,
+      );
+    }
+
     final TransactionModel resultTransactionModel =
         TransactionModel.fromEntity(resultTransaction);
     senderUser.transactions.add(resultTransactionModel);
@@ -155,6 +175,33 @@ class ServerClient {
       jsonEncode(resultTransactionModel.toJson()),
       200,
     );
+  }
+
+  bool checkTransactionPossible(
+    Transaction transaction, {
+    required List<Transaction> userTransactions,
+    required List<Beneficiary> userBeneficiaries,
+    required bool userVerified,
+  }) {
+    TransactionChecks transactionChecks = TransactionChecks();
+    final bool monthLimitExceeded =
+        transactionChecks.checkExceedsMonthTransactions(
+      transaction,
+      savedUserTransaction: userTransactions,
+      appConfig: mockConfigs(),
+    );
+    if (monthLimitExceeded) return false;
+
+    final bool beneficiaryLimitExceeded =
+        transactionChecks.checkExceedsBeneficiaryTransactions(
+      transaction,
+      savedUserBeneficiaries: userBeneficiaries,
+      userVerified: userVerified,
+      appConfig: mockConfigs(),
+    );
+    if (beneficiaryLimitExceeded) return false;
+
+    return true;
   }
 
   Future<List<UserModel>> getSavedUsersList() async {
