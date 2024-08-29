@@ -7,7 +7,7 @@ import 'package:uae_top_up/src/feature/localization/domain/constants/const_local
 import 'package:uae_top_up/src/feature/localization/domain/util/app_localizations.dart';
 
 import '../../../user_management/presentation/provider/user_management_provider.dart';
-import 'settings_item.dart';
+import '../../../configuration/presentation/widget/settings_item.dart';
 
 class SettingsDialog extends StatelessWidget {
   const SettingsDialog({super.key});
