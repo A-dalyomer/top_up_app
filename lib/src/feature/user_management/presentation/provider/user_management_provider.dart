@@ -9,6 +9,7 @@ import 'package:uae_top_up/src/feature/user_management/domain/util/transaction_c
 
 import '../../domain/entity/user.dart';
 import '../../domain/repository/user_management_repository.dart';
+import '../../domain/util/user_actions.dart';
 
 class UserManagementProvider extends ChangeNotifier {
   UserManagementProvider(this.context, this.userManagementRepository) {
@@ -62,6 +63,10 @@ class UserManagementProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void showAddBeneficiarySheet(BuildContext context) {
+    UserActions().showAddBeneficiarySheet(context);
+  }
+
   Future<bool> addBeneficiary(Beneficiary beneficiary) async {
     BeneficiaryModel? addedBeneficiary =
         await userManagementRepository.addBeneficiary(
@@ -74,6 +79,10 @@ class UserManagementProvider extends ChangeNotifier {
       notifyListeners();
     }
     return addedBeneficiary != null;
+  }
+
+  void showTransactionSheet(context, Beneficiary beneficiary) {
+    UserActions().showTransactionSheet(context, beneficiary);
   }
 
   Future<bool> makeTransaction({
