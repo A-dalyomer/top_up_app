@@ -19,13 +19,25 @@ class TransactionChecks {
     required AppConfig appConfig,
   }) {
     double totalMonthTransactions = transaction.amount;
+    totalMonthTransactions += getTotalUserMonthTransactions(
+      savedUserTransaction,
+      transaction.dateTime,
+    );
+    if (totalMonthTransactions > appConfig.senderMaxAmount) return true;
+    return false;
+  }
+
+  double getTotalUserMonthTransactions(
+    List<Transaction> savedUserTransaction,
+    DateTime transactionDateMonth,
+  ) {
+    double totalMonthTransactions = 0;
     for (var savedTransaction in savedUserTransaction) {
-      if (savedTransaction.dateTime.month == transaction.dateTime.month) {
+      if (savedTransaction.dateTime.month == transactionDateMonth.month) {
         totalMonthTransactions += savedTransaction.amount;
       }
     }
-    if (totalMonthTransactions > appConfig.senderMaxAmount) return true;
-    return false;
+    return totalMonthTransactions;
   }
 
   bool checkExceedsBeneficiaryTransactions(
@@ -34,16 +46,14 @@ class TransactionChecks {
     required userVerified,
     required AppConfig appConfig,
   }) {
-    double totalBeneficiaryMonthTransactions = transaction.amount;
     final Beneficiary targetBeneficiary = savedUserBeneficiaries.singleWhere(
       (element) => transaction.targetUserPhoneNumber == element.phoneNumber,
     );
-    for (var savedBeneficiaryTransaction in targetBeneficiary.transactions) {
-      if (savedBeneficiaryTransaction.dateTime.month ==
-          transaction.dateTime.month) {
-        totalBeneficiaryMonthTransactions += savedBeneficiaryTransaction.amount;
-      }
-    }
+    double totalBeneficiaryMonthTransactions = transaction.amount;
+    totalBeneficiaryMonthTransactions += getTotalBeneficiaryTransactions(
+      targetBeneficiary,
+      transaction.dateTime,
+    );
     switch (userVerified) {
       case true:
         if (totalBeneficiaryMonthTransactions >
@@ -53,5 +63,19 @@ class TransactionChecks {
             appConfig.receiverNonVerifiedMaxAmount) return true;
     }
     return false;
+  }
+
+  double getTotalBeneficiaryTransactions(
+    Beneficiary targetBeneficiary,
+    DateTime transactionDateMonth,
+  ) {
+    double totalBeneficiaryMonthTransactions = 0;
+    for (var savedBeneficiaryTransaction in targetBeneficiary.transactions) {
+      if (savedBeneficiaryTransaction.dateTime.month ==
+          transactionDateMonth.month) {
+        totalBeneficiaryMonthTransactions += savedBeneficiaryTransaction.amount;
+      }
+    }
+    return totalBeneficiaryMonthTransactions;
   }
 }
