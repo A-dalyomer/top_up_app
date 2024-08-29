@@ -7,6 +7,7 @@ import 'package:uae_top_up/src/feature/user_management/domain/util/user_actions.
 import 'package:uae_top_up/src/feature/user_management/presentation/provider/user_management_provider.dart';
 import 'package:uae_top_up/src/feature/user_top_up/presentation/widget/balance_view.dart';
 import 'package:uae_top_up/src/feature/user_top_up/presentation/widget/beneficiaries_list_view.dart';
+import 'package:uae_top_up/src/feature/user_top_up/presentation/widget/transaction_history_list.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -56,6 +57,9 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ],
               ),
+            ),
+            const SliverFillRemaining(
+              child: TransactionHistoryList(),
             ),
           ],
         ),
