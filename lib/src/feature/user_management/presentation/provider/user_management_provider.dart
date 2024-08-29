@@ -23,8 +23,10 @@ class UserManagementProvider extends ChangeNotifier {
 
   Future<void> initializeUser() async {
     User? savedUser = await userManagementRepository.getCurrentUser();
-    userExists = savedUser != null;
-    if (userExists) user = savedUser!;
+    if (savedUser != null) {
+      final User? refreshedUser = await refreshUser(savedUser);
+      await updateUser(refreshedUser ?? savedUser);
+    }
     finishedInitialization = true;
     notifyListeners();
   }
@@ -35,11 +37,23 @@ class UserManagementProvider extends ChangeNotifier {
   ) async {
     User? newUser = await userManagementRepository.signInUser(phoneNumber);
     if (newUser != null) {
-      await userManagementRepository.saveUser(newUser: newUser);
-      user = newUser;
-      userExists = true;
-      notifyListeners();
+      await updateUser(newUser);
     }
+  }
+
+  Future<User?> refreshUser(User user) async {
+    User? newUser = await userManagementRepository.signInUser(user.phoneNumber);
+    if (newUser != null) {
+      await updateUser(newUser);
+    }
+    return newUser;
+  }
+
+  Future<void> updateUser(User newUser) async {
+    await userManagementRepository.saveUser(newUser: newUser);
+    user = newUser;
+    userExists = true;
+    notifyListeners();
   }
 
   Future<void> signOutUser() async {
