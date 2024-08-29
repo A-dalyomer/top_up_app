@@ -29,4 +29,7 @@ class AppLocalizations {
   static String transactionHistoryEmpty = "transaction_history_empty";
   static String signOut = "sign_out";
   static String darkMode = "dark_mode";
+  static String accept = "accept";
+  static String noEnoughBalance = "no_enough_balance";
+  static String transactionMaxMonthAmount = "transaction_max_month_amount";
 }

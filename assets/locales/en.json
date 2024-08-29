@@ -13,7 +13,7 @@
   "login_button": "Login",
   "user_balance": "Current balance",
   "remaining_allowed_balance": "Remaining monthly balance recharges",
-  "beneficiary_max_reached": "You have reacehd maximum allowed transfer amount for this user",
+  "beneficiary_max_reached": "You have reached maximum allowed transfer amount for this user",
   "beneficiary_max_amount": "You can only recharge with {amount} to {name}",
   "recharge_now": "Recharge now",
   "mobile_recharge": "Mobile Recharge",
@@ -28,5 +28,8 @@
   "add_beneficiary": "Add Beneficiary",
   "transaction_history_empty": "Your previous transactions will appear here",
   "sign_out": "Sign out",
-  "dark_mode": "Dark mode"
+  "dark_mode": "Dark mode",
+  "accept": "Accept",
+  "no_enough_balance": "You do not have enough balance for this transaction",
+  "transaction_max_month_amount": "You have reached the maximum  of {max_amount} allowed transactions for this month"
 }

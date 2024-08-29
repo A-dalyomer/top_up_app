@@ -28,5 +28,8 @@
   "add_beneficiary": "إضافة مستفيد",
   "transaction_history_empty": "ستظهر معاملاتك السابقة هنا",
   "sign_out": "تسجيل الخروج",
-  "dark_mode": "الوضع المظلم"
+  "dark_mode": "الوضع المظلم",
+  "accept": "موافق",
+  "no_enough_balance": "ليس لديك رصيد كافي لهذه العملية",
+  "transaction_max_month_amount": "لقد وصلت إلى الحد الأقصى المسموح به وهو {max_amount} من المعاملات لهذا الشهر"
 }
