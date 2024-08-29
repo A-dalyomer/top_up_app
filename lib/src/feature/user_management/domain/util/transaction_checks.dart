@@ -1,10 +1,67 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:uae_top_up/src/core/util/dialogs.dart';
 import 'package:uae_top_up/src/feature/configuration/domain/entity/app_config.dart';
 import 'package:uae_top_up/src/feature/localization/domain/util/app_localizations.dart';
+import 'package:uae_top_up/src/feature/transaction/data/model/transaction_model.dart';
 import 'package:uae_top_up/src/feature/transaction/domain/entity/transaction.dart';
 import 'package:uae_top_up/src/feature/user_management/domain/entity/beneficiary.dart';
 
+import '../entity/user.dart';
+
 class TransactionChecks {
+  TransactionChecks({required this.dialogs});
+  final Dialogs dialogs;
+
+  bool checkTransactionPossible(
+    BuildContext context, {
+    required TransactionModel transaction,
+    required User user,
+    required AppConfig appConfig,
+  }) {
+    bool hasEnoughBalance = checkEnoughBalance(
+      userBalance: user.balance,
+      transactionAmount: transaction.amount,
+    );
+    if (!hasEnoughBalance) {
+      dialogs.showMessageDialog(context, AppLocalizations.noEnoughBalance);
+      return false;
+    }
+
+    bool exceedsMonthTransactions = checkExceedsMonthTransactions(
+      transaction,
+      savedUserTransaction: user.transactions,
+      appConfig: appConfig,
+    );
+    if (exceedsMonthTransactions) {
+      dialogs.showMessageDialog(
+        context,
+        AppLocalizations.transactionMaxMonthAmount,
+      );
+      return false;
+    }
+
+    bool exceedsBeneficiaryTransactions = checkExceedsBeneficiaryTransactions(
+      transaction,
+      savedUserBeneficiaries: user.beneficiaries,
+      userVerified: user.isVerified,
+      appConfig: appConfig,
+    );
+    if (exceedsBeneficiaryTransactions) {
+      String message = handleBeneficiaryMaxTransaction(
+        targetUserPhoneNumber: transaction.targetUserPhoneNumber,
+        dateTime: transaction.dateTime,
+        appConfig: appConfig,
+        beneficiaries: user.beneficiaries,
+        userVerified: user.isVerified,
+      );
+      dialogs.showMessageDialog(context, message);
+      return false;
+    }
+
+    return true;
+  }
+
   bool checkEnoughBalance({
     required double userBalance,
     required double transactionAmount,

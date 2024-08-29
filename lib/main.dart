@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:uae_top_up/src/core/constants/const_assets.dart';
 import 'package:uae_top_up/src/feature/localization/domain/constants/const_locales.dart';
+import 'package:uae_top_up/src/feature/user_management/domain/util/transaction_checks.dart';
 
 import 'src/core/util/dependency_injection_manager.dart';
 import 'src/feature/configuration/domain/util/core_config_manager.dart';
@@ -40,6 +41,7 @@ void main() async {
             create: (context) => UserManagementProvider(
               context,
               DIManager.getIt<UserManagementRepository>(),
+              DIManager.getIt<TransactionChecks>(),
             ),
             lazy: false,
           ),

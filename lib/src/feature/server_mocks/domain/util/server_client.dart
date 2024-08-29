@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:http/testing.dart';
 import 'package:http/http.dart' as http;
 import 'package:uae_top_up/src/core/util/dependency_injection_manager.dart';
+import 'package:uae_top_up/src/core/util/dialogs.dart';
 import 'package:uae_top_up/src/feature/configuration/data/app_config_model.dart';
 import 'package:uae_top_up/src/feature/configuration/domain/entity/app_config.dart';
 import 'package:uae_top_up/src/feature/local_storage/data/constants/const_storage_keys.dart';
@@ -183,7 +184,9 @@ class ServerClient {
     required List<Beneficiary> userBeneficiaries,
     required bool userVerified,
   }) {
-    TransactionChecks transactionChecks = TransactionChecks();
+    TransactionChecks transactionChecks = TransactionChecks(
+      dialogs: Dialogs(),
+    );
     final bool monthLimitExceeded =
         transactionChecks.checkExceedsMonthTransactions(
       transaction,

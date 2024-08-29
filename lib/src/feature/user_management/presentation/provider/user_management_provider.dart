@@ -1,10 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:uae_top_up/src/core/util/dialogs.dart';
 import 'package:uae_top_up/src/feature/configuration/domain/entity/app_config.dart';
 import 'package:uae_top_up/src/feature/configuration/domain/util/core_config_manager.dart';
-import 'package:uae_top_up/src/feature/localization/domain/util/app_localizations.dart';
 import 'package:uae_top_up/src/feature/transaction/data/model/transaction_model.dart';
 import 'package:uae_top_up/src/feature/user_management/data/model/beneficiary_model.dart';
 import 'package:uae_top_up/src/feature/user_management/domain/entity/beneficiary.dart';
@@ -15,11 +13,16 @@ import '../../domain/repository/user_management_repository.dart';
 import '../../domain/util/user_actions.dart';
 
 class UserManagementProvider extends ChangeNotifier {
-  UserManagementProvider(this.context, this.userManagementRepository) {
+  UserManagementProvider(
+    this.context,
+    this.userManagementRepository,
+    this.transactionChecks,
+  ) {
     initializeUser();
   }
   final BuildContext context;
   final UserManagementRepository userManagementRepository;
+  final TransactionChecks transactionChecks;
 
   late User user;
   bool finishedInitialization = false;
@@ -101,6 +104,7 @@ class UserManagementProvider extends ChangeNotifier {
     required Beneficiary beneficiary,
     required double amount,
     required BuildContext context,
+    required AppConfig appConfig,
   }) async {
     TransactionModel tempTransaction = TransactionModel(
       id: 0,
@@ -109,9 +113,12 @@ class UserManagementProvider extends ChangeNotifier {
       targetUserPhoneNumber: beneficiary.phoneNumber,
       dateTime: DateTime.now(),
     );
-    bool canMakeTransaction = checkTransactionPossible(
-      tempTransaction,
+
+    bool canMakeTransaction = transactionChecks.checkTransactionPossible(
       context,
+      transaction: tempTransaction,
+      user: user,
+      appConfig: appConfig,
     );
     if (!canMakeTransaction) return false;
     debitUserBalance(amount + 1);
@@ -129,58 +136,6 @@ class UserManagementProvider extends ChangeNotifier {
       debitUserBalance(-(amount + 1));
     }
     return newTransaction != null;
-  }
-
-  bool checkTransactionPossible(
-    TransactionModel transaction,
-    BuildContext context,
-  ) {
-    TransactionChecks transactionChecks = TransactionChecks();
-
-    bool hasEnoughBalance = transactionChecks.checkEnoughBalance(
-      userBalance: user.balance,
-      transactionAmount: transaction.amount,
-    );
-    if (!hasEnoughBalance) {
-      Dialogs().showMessageDialog(context, AppLocalizations.noEnoughBalance);
-      return false;
-    }
-
-    final AppConfig appConfig = context.read<CoreConfigManager>().appConfig!;
-    bool exceedsMonthTransactions =
-        transactionChecks.checkExceedsMonthTransactions(
-      transaction,
-      savedUserTransaction: user.transactions,
-      appConfig: appConfig,
-    );
-    if (exceedsMonthTransactions) {
-      Dialogs().showMessageDialog(
-        context,
-        AppLocalizations.transactionMaxMonthAmount,
-      );
-      return false;
-    }
-
-    bool exceedsBeneficiaryTransactions =
-        transactionChecks.checkExceedsBeneficiaryTransactions(
-      transaction,
-      savedUserBeneficiaries: user.beneficiaries,
-      userVerified: user.isVerified,
-      appConfig: appConfig,
-    );
-    if (exceedsBeneficiaryTransactions) {
-      String message = transactionChecks.handleBeneficiaryMaxTransaction(
-        targetUserPhoneNumber: transaction.targetUserPhoneNumber,
-        dateTime: transaction.dateTime,
-        appConfig: appConfig,
-        beneficiaries: user.beneficiaries,
-        userVerified: user.isVerified,
-      );
-      Dialogs().showMessageDialog(context, message);
-      return false;
-    }
-
-    return true;
   }
 
   void debitUserBalance(double amount) {
