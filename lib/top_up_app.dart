@@ -33,6 +33,7 @@ class _TopUpAppState extends State<TopUpApp> {
         ),
         ChangeNotifierProvider(
           create: (context) => UserManagementProvider(
+            context,
             DIManager.getIt<UserManagementRepository>(),
           ),
           lazy: false,

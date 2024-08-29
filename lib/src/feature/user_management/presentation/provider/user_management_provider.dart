@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:uae_top_up/src/feature/configurarion/domain/entity/app_config.dart';
+import 'package:uae_top_up/src/feature/configurarion/domain/util/core_config_manager.dart';
 import 'package:uae_top_up/src/feature/transaction/data/model/transaction_model.dart';
 import 'package:uae_top_up/src/feature/user_management/data/model/beneficiary_model.dart';
 import 'package:uae_top_up/src/feature/user_management/domain/entity/beneficiary.dart';
+import 'package:uae_top_up/src/feature/user_management/domain/util/transaction_checks.dart';
 
 import '../../domain/entity/user.dart';
 import '../../domain/repository/user_management_repository.dart';
 
 class UserManagementProvider extends ChangeNotifier {
-  UserManagementProvider(this.userManagementRepository) {
+  UserManagementProvider(this.context, this.userManagementRepository) {
     initializeUser();
   }
+  final BuildContext context;
   final UserManagementRepository userManagementRepository;
 
   late User user;
@@ -66,6 +71,7 @@ class UserManagementProvider extends ChangeNotifier {
       amount: amount,
       sourceUserId: user.id,
       targetUserPhoneNumber: beneficiary.phoneNumber,
+      dateTime: DateTime.now(),
     );
     bool canMakeTransaction = checkTransactionPossible(tempTransaction);
     if (!canMakeTransaction) return false;
@@ -84,10 +90,34 @@ class UserManagementProvider extends ChangeNotifier {
     return newTransaction != null;
   }
 
+  /// TODO: Make UI errors for false cases
   bool checkTransactionPossible(TransactionModel transaction) {
-    if (user.balance < transaction.amount + 1) {
-      return false;
-    }
+    TransactionChecks transactionChecks = TransactionChecks();
+
+    bool hasEnoughBalance = transactionChecks.checkEnoughBalance(
+      userBalance: user.balance,
+      transactionAmount: transaction.amount,
+    );
+    if (!hasEnoughBalance) return false;
+
+    final AppConfig appConfig = context.read<CoreConfigManager>().appConfig!;
+    bool exceedsMonthTransactions =
+        transactionChecks.checkExceedsMonthTransactions(
+      transaction,
+      savedUserTransaction: user.transactions,
+      appConfig: appConfig,
+    );
+    if (exceedsMonthTransactions) return false;
+
+    bool exceedsBeneficiaryTransactions =
+        transactionChecks.checkExceedsBeneficiaryTransactions(
+      transaction,
+      savedUserBeneficiaries: user.beneficiaries,
+      userVerified: user.isVerified,
+      appConfig: appConfig,
+    );
+    if (exceedsBeneficiaryTransactions) return false;
+
     return true;
   }
 
