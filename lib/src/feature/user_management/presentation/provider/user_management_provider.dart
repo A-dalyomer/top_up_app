@@ -64,7 +64,16 @@ class UserManagementProvider extends ChangeNotifier {
   }
 
   void showAddBeneficiarySheet(BuildContext context) {
+    if (!checkAddBeneficiaryPossible()) return;
     UserActions().showAddBeneficiarySheet(context);
+  }
+
+  bool checkAddBeneficiaryPossible() {
+    final AppConfig appConfig = context.read<CoreConfigManager>().appConfig!;
+    if (user.beneficiaries.length > appConfig.maxActiveBeneficiaries) {
+      return false;
+    }
+    return true;
   }
 
   Future<bool> addBeneficiary(Beneficiary beneficiary) async {
