@@ -18,7 +18,10 @@ class ApiActionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return switch (screenStates) {
-      ApiScreenStates.loading => const LoadingIndicator(),
+      ApiScreenStates.loading => const Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [LoadingIndicator()],
+        ),
       ApiScreenStates.done || _ => Column(
           mainAxisSize: MainAxisSize.min,
           children: [
