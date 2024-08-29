@@ -46,13 +46,11 @@ class TransactionChecks {
     required userVerified,
     required AppConfig appConfig,
   }) {
-    final Beneficiary targetBeneficiary = savedUserBeneficiaries.singleWhere(
-      (element) => transaction.targetUserPhoneNumber == element.phoneNumber,
-    );
     double totalBeneficiaryMonthTransactions = transaction.amount;
     totalBeneficiaryMonthTransactions += getTotalBeneficiaryTransactions(
-      targetBeneficiary,
-      transaction.dateTime,
+      targetUserPhoneNumber: transaction.targetUserPhoneNumber,
+      transactionDateMonth: transaction.dateTime,
+      savedUserBeneficiaries: savedUserBeneficiaries,
     );
     switch (userVerified) {
       case true:
@@ -65,10 +63,16 @@ class TransactionChecks {
     return false;
   }
 
-  double getTotalBeneficiaryTransactions(
-    Beneficiary targetBeneficiary,
-    DateTime transactionDateMonth,
-  ) {
+  double getTotalBeneficiaryTransactions({
+    required String targetUserPhoneNumber,
+    required DateTime transactionDateMonth,
+    required List<Beneficiary> savedUserBeneficiaries,
+  }) {
+    final Beneficiary targetBeneficiary = savedUserBeneficiaries
+        .where(
+          (element) => targetUserPhoneNumber == element.phoneNumber,
+        )
+        .first;
     double totalBeneficiaryMonthTransactions = 0;
     for (var savedBeneficiaryTransaction in targetBeneficiary.transactions) {
       if (savedBeneficiaryTransaction.dateTime.month ==
