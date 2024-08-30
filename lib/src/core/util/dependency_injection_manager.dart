@@ -19,11 +19,13 @@ class DIManager {
   static final getIt = GetIt.instance;
 
   static Future<void> initAppInjections() async {
-    GetIt.instance.registerSingleton<http.Client>(ServerClient().mockClient());
     GetIt.instance
         .registerSingleton<LocalStorageRepository>(LocalStorageRepositoryImpl(
       storageClient: const FlutterSecureStorage(),
     ));
+    GetIt.instance.registerSingleton<http.Client>(
+      ServerClient(localStorage: getIt<LocalStorageRepository>()).mockClient(),
+    );
     GetIt.instance.registerSingleton<ApiRequestRepository>(
       ApiRequestRepositoryImpl(
         apiClient: getIt<http.Client>(),

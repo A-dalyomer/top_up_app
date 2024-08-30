@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/testing.dart';
 import 'package:http/http.dart' as http;
-import 'package:uae_top_up/src/core/util/dependency_injection_manager.dart';
 import 'package:uae_top_up/src/core/util/dialogs.dart';
 import 'package:uae_top_up/src/feature/configuration/data/app_config_model.dart';
 import 'package:uae_top_up/src/feature/configuration/domain/entity/app_config.dart';
@@ -20,10 +19,13 @@ import 'package:uae_top_up/src/feature/user_management/domain/util/transaction_c
 import '../../../network/data/constants/const_api_paths.dart';
 
 class ServerClient {
+  ServerClient({required this.localStorage});
+
   MockClient mockClient() {
     return MockClient(handler);
   }
 
+  final LocalStorageRepository localStorage;
   Future<http.Response> handler(request) async {
     if (kDebugMode) {
       print(request.url.path);
@@ -208,9 +210,8 @@ class ServerClient {
   }
 
   Future<List<UserModel>> getSavedUsersList() async {
-    String? savedUsersRaw = (await DIManager.getIt<LocalStorageRepository>()
-            .readValue(ConstStorageKeys.serverUsers)) ??
-        "{}";
+    String savedUsersRaw =
+        (await localStorage.readValue(ConstStorageKeys.serverUsers)) ?? "{}";
     final List usersJson = jsonDecode(savedUsersRaw)['users'] ?? [];
     final savedUsers =
         usersJson.map((userData) => UserModel.fromJson(userData)).toList();
@@ -235,11 +236,9 @@ class ServerClient {
   }
 
   Future<void> saveUsers(List<UserModel> savedUsers) async {
-    await DIManager.getIt<LocalStorageRepository>().writeValue(
+    await localStorage.writeValue(
       ConstStorageKeys.serverUsers,
-      jsonEncode(
-        {"users": savedUsers.map((e) => e.toJson()).toList()},
-      ),
+      jsonEncode({"users": savedUsers.map((e) => e.toJson()).toList()}),
     );
   }
 }
