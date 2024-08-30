@@ -6,8 +6,8 @@ import 'package:uae_top_up/src/feature/localization/domain/util/app_localization
 import 'package:uae_top_up/src/feature/user_management/presentation/provider/user_management_provider.dart';
 import 'package:uae_top_up/src/feature/user_top_up/presentation/widget/balance_view.dart';
 
-import '../../../../../../test_helpers.dart';
-import '../../provider/user_management_provider_test.mocks.dart';
+import '../../../../../test_helpers.dart';
+import '../../../user_management/presentation/provider/user_management_provider_test.mocks.dart';
 
 void main() {
   late Widget widget;
