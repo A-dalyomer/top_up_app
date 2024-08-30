@@ -20,12 +20,15 @@ class LoginProvider extends ChangeNotifier {
     password = newValue;
   }
 
+  void setLoadingState(bool value) {
+    loading = value;
+    notifyListeners();
+  }
+
   void attemptLogin() async {
     if (!(_loginFormKey.currentState?.validate() ?? false)) return;
-    loading = true;
-    notifyListeners();
+    setLoadingState(true);
     await loginUser(phoneNumber, password);
-    loading = false;
-    notifyListeners();
+    setLoadingState(false);
   }
 }
