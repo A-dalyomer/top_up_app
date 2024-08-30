@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:provider/provider.dart';
+import 'package:uae_top_up/src/core/constants/const_widget_keys.dart';
 import 'package:uae_top_up/src/core/extension/size_extensions.dart';
 import 'package:uae_top_up/src/core/widget/phone_number_field.dart';
 import 'package:uae_top_up/src/feature/auth/presentation/provider/login_provider.dart';
@@ -35,6 +36,7 @@ class LoginForm extends StatelessWidget {
           style: Theme.of(context).textTheme.titleMedium,
         ),
         TextFormField(
+          key: ConstWidgetKeys.passwordFormField,
           onChanged: (value) => onPasswordChanged?.call(value),
           enabled: !context.read<LoginProvider>().loading,
           keyboardType: TextInputType.visiblePassword,
