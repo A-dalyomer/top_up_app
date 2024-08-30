@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:uae_top_up/src/feature/configuration/domain/entity/app_config.dart';
-import 'package:uae_top_up/src/feature/configuration/domain/util/core_config_manager.dart';
 import 'package:uae_top_up/src/feature/transaction/data/model/transaction_model.dart';
+import 'package:uae_top_up/src/feature/transaction/domain/entity/transaction.dart';
 import 'package:uae_top_up/src/feature/user_management/data/model/beneficiary_model.dart';
 import 'package:uae_top_up/src/feature/user_management/domain/entity/beneficiary.dart';
 import 'package:uae_top_up/src/feature/user_management/domain/util/transaction_checks.dart';
@@ -14,15 +13,15 @@ import '../../domain/util/user_actions.dart';
 
 class UserManagementProvider extends ChangeNotifier {
   UserManagementProvider(
-    this.context,
     this.userManagementRepository,
     this.transactionChecks,
+    this.userActions,
   ) {
     initializeUser();
   }
-  final BuildContext context;
   final UserManagementRepository userManagementRepository;
   final TransactionChecks transactionChecks;
+  final UserActions userActions;
 
   late User user;
   bool finishedInitialization = false;
@@ -69,13 +68,12 @@ class UserManagementProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void showAddBeneficiarySheet(BuildContext context) {
-    if (!checkAddBeneficiaryPossible()) return;
-    UserActions().showAddBeneficiarySheet(context);
+  void showAddBeneficiarySheet(BuildContext context, AppConfig appConfig) {
+    if (!checkAddBeneficiaryPossible(appConfig)) return;
+    userActions.showAddBeneficiarySheet(context);
   }
 
-  bool checkAddBeneficiaryPossible() {
-    final AppConfig appConfig = context.read<CoreConfigManager>().appConfig!;
+  bool checkAddBeneficiaryPossible(AppConfig appConfig) {
     if (user.beneficiaries.length > appConfig.maxActiveBeneficiaries) {
       return false;
     }
@@ -97,7 +95,7 @@ class UserManagementProvider extends ChangeNotifier {
   }
 
   void showTransactionSheet(context, Beneficiary beneficiary) {
-    UserActions().showTransactionSheet(context, beneficiary);
+    userActions.showTransactionSheet(context, beneficiary);
   }
 
   Future<bool> makeTransaction({
@@ -144,7 +142,9 @@ class UserManagementProvider extends ChangeNotifier {
   }
 
   Future<void> updateBeneficiaries(BeneficiaryModel newBeneficiary) async {
-    user.beneficiaries.add(newBeneficiary);
+    final List<Beneficiary> updatedBeneficiaries =
+        List.from([...user.beneficiaries, newBeneficiary]);
+    user.copyWith(beneficiaries: updatedBeneficiaries);
     await userManagementRepository.saveUser(newUser: user);
   }
 
@@ -152,11 +152,35 @@ class UserManagementProvider extends ChangeNotifier {
     required Beneficiary beneficiary,
     required TransactionModel newTransaction,
   }) async {
-    user.transactions.add(newTransaction);
-    user.beneficiaries
-        .singleWhere((element) => element == beneficiary)
-        .transactions
-        .add(newTransaction);
+    final List<Transaction> updatedTransactions = List.from([
+      ...user.transactions,
+      newTransaction,
+    ]);
+    final Beneficiary updatedBeneficiary = _updateBeneficiaryTransactions(
+      beneficiary,
+      newTransaction: newTransaction,
+    );
+    user = user.copyWith(
+      transactions: updatedTransactions,
+      beneficiaries: [
+        ...user.beneficiaries,
+        updatedBeneficiary,
+      ],
+    );
     await userManagementRepository.saveUser(newUser: user);
+  }
+
+  Beneficiary _updateBeneficiaryTransactions(
+    Beneficiary beneficiary, {
+    required TransactionModel newTransaction,
+  }) {
+    final List<Transaction> updatedBeneficiaryTransactions = List.from([
+      ...user.transactions,
+      newTransaction,
+    ]);
+    final updatedBeneficiary = beneficiary.copyWith(
+      transactions: updatedBeneficiaryTransactions,
+    );
+    return updatedBeneficiary;
   }
 }

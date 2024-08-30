@@ -10,7 +10,11 @@ import 'package:uae_top_up/src/feature/user_management/presentation/provider/use
 class AddBeneficiaryButton extends StatelessWidget {
   const AddBeneficiaryButton({super.key});
   void showAddBeneficiarySheet(BuildContext context) {
-    context.read<UserManagementProvider>().showAddBeneficiarySheet(context);
+    final AppConfig appConfig = context.read<CoreConfigManager>().appConfig!;
+    context.read<UserManagementProvider>().showAddBeneficiarySheet(
+          context,
+          appConfig,
+        );
   }
 
   @override

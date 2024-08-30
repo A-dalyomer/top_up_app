@@ -13,6 +13,7 @@ import 'package:uae_top_up/src/feature/transaction/data/repository/transaction_r
 import 'package:uae_top_up/src/feature/transaction/domain/repository/transaction_repository.dart';
 import 'package:uae_top_up/src/feature/user_management/data/repository/user_management_repository_impl.dart';
 import 'package:uae_top_up/src/feature/user_management/domain/util/transaction_checks.dart';
+import 'package:uae_top_up/src/feature/user_management/domain/util/user_actions.dart';
 
 import '../../feature/user_management/domain/repository/user_management_repository.dart';
 
@@ -38,6 +39,7 @@ class DIManager {
       ),
     );
     GetIt.instance.registerSingleton<Dialogs>(Dialogs());
+    GetIt.instance.registerSingleton<UserActions>(UserActions());
     GetIt.instance.registerSingleton<TransactionChecks>(
       TransactionChecks(dialogs: getIt<Dialogs>()),
     );
