@@ -6,7 +6,7 @@ import 'package:uae_top_up/src/feature/localization/domain/util/app_localization
 import 'package:uae_top_up/src/feature/user_management/presentation/provider/user_management_provider.dart';
 import 'package:uae_top_up/src/feature/user_top_up/presentation/widget/balance_view.dart';
 import 'package:uae_top_up/src/feature/user_top_up/presentation/widget/beneficiaries_list_view.dart';
-import 'package:uae_top_up/src/feature/user_top_up/presentation/widget/transaction_history_list.dart';
+import 'package:uae_top_up/src/feature/transaction/presentation/widget/transaction_history_list.dart';
 
 import '../widget/add_beneficiary_button.dart';
 
