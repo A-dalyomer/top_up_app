@@ -1,7 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:uae_top_up/src/core/util/dependency_injection_manager.dart';
 import 'package:uae_top_up/src/core/widget/initialization_screen.dart';
+import 'package:uae_top_up/src/feature/auth/presentation/provider/login_provider.dart';
 import 'package:uae_top_up/src/feature/auth/presentation/screen/login_screen.dart';
 import 'package:uae_top_up/src/feature/configuration/domain/util/app_themes.dart';
 import 'package:uae_top_up/src/feature/configuration/presentation/provider/settings_provider.dart';
@@ -47,7 +49,11 @@ class _TopUpAppState extends State<TopUpApp> {
             return const InitializationScreen();
           }
           if (!userExists) {
-            return const LoginScreen();
+            return LoginScreen(
+              loginProvider: DIManager.getIt<LoginProvider>(
+                param1: context.read<UserManagementProvider>().loginUser,
+              ),
+            );
           }
           return const HomeScreen();
         },

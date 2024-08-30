@@ -2,6 +2,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 import 'package:uae_top_up/src/core/util/dialogs.dart';
+import 'package:uae_top_up/src/feature/auth/presentation/provider/login_provider.dart';
 import 'package:uae_top_up/src/feature/local_storage/data/repository/local_storage_repository_impl.dart';
 import 'package:uae_top_up/src/feature/local_storage/domain/repository/local_storage_repository.dart';
 import 'package:uae_top_up/src/feature/network/data/repository/api_request_repository_impl.dart';
@@ -43,6 +44,10 @@ class DIManager {
         apiRequestRepository: getIt<ApiRequestRepository>(),
         transactionRepository: getIt<TransactionRepository>(),
       ),
+    );
+    GetIt.instance.registerFactoryParam<LoginProvider,
+        Future Function(String, String), Null>(
+      (loginUser, _) => LoginProvider(loginUser: loginUser),
     );
   }
 }
