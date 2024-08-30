@@ -12,6 +12,8 @@ import 'package:uae_top_up/src/feature/configuration/data/app_config_model.dart'
     as _i5;
 import 'package:uae_top_up/src/feature/local_storage/domain/repository/local_storage_repository.dart'
     as _i2;
+import 'package:uae_top_up/src/feature/network/domain/util/api_general_handler.dart'
+    as _i12;
 import 'package:uae_top_up/src/feature/server_mocks/domain/util/server_client.dart'
     as _i7;
 import 'package:uae_top_up/src/feature/transaction/data/model/transaction_model.dart'
@@ -343,4 +345,37 @@ class MockServerClient extends _i1.Mock implements _i7.ServerClient {
         returnValue: _i8.Future<void>.value(),
         returnValueForMissingStub: _i8.Future<void>.value(),
       ) as _i8.Future<void>);
+}
+
+/// A class which mocks [APIRequestHandlers].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockAPIRequestHandlers extends _i1.Mock
+    implements _i12.APIRequestHandlers {
+  @override
+  void requestException(_i4.Response? response) => super.noSuchMethod(
+        Invocation.method(
+          #requestException,
+          [response],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void noResponseRequestException(dynamic exception) => super.noSuchMethod(
+        Invocation.method(
+          #noResponseRequestException,
+          [exception],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void unknownRequestException(dynamic exception) => super.noSuchMethod(
+        Invocation.method(
+          #unknownRequestException,
+          [exception],
+        ),
+        returnValueForMissingStub: null,
+      );
 }
