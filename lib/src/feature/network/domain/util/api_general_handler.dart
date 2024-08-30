@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 class APIRequestHandlers {
-  static void requestException(http.Response response) {
+  void requestException(http.Response response) {
     if (kDebugMode) {
       print(response.body.toString());
     }
@@ -15,14 +15,14 @@ class APIRequestHandlers {
     _logAnalyticsEvent();
   }
 
-  static void noResponseRequestException(dynamic exception) {
+  void noResponseRequestException(dynamic exception) {
     if (kDebugMode) {
       print(exception.toString());
     }
     _logAnalyticsEvent();
   }
 
-  static void unknownRequestException(dynamic exception) {
+  void unknownRequestException(dynamic exception) {
     if (kDebugMode) {
       print(exception.toString());
     }

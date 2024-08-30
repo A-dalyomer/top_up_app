@@ -7,8 +7,12 @@ import '../../domain/repository/api_request_repository.dart';
 import '../../domain/util/api_general_handler.dart';
 
 class ApiRequestRepositoryImpl implements ApiRequestRepository {
-  ApiRequestRepositoryImpl({required this.apiClient});
+  ApiRequestRepositoryImpl({
+    required this.apiClient,
+    required this.apiRequestHandlers,
+  });
   final http.Client apiClient;
+  final APIRequestHandlers apiRequestHandlers;
 
   @override
   Future<Map<String, dynamic>?> getRequest(
@@ -50,14 +54,14 @@ class ApiRequestRepositoryImpl implements ApiRequestRepository {
       http.Response response = await request();
       if (response.statusCode != 200) {
         requestCodesHandler?.call(response.statusCode) ??
-            APIRequestHandlers.requestException(response);
+            apiRequestHandlers.requestException(response);
         return null;
       }
       return jsonDecode(response.body);
     } on http.ClientException catch (requestException) {
-      APIRequestHandlers.noResponseRequestException(requestException);
+      apiRequestHandlers.noResponseRequestException(requestException);
     } catch (otherExceptions) {
-      APIRequestHandlers.unknownRequestException(otherExceptions);
+      apiRequestHandlers.unknownRequestException(otherExceptions);
     }
     return null;
   }

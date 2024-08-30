@@ -7,6 +7,7 @@ import 'package:uae_top_up/src/feature/local_storage/data/repository/local_stora
 import 'package:uae_top_up/src/feature/local_storage/domain/repository/local_storage_repository.dart';
 import 'package:uae_top_up/src/feature/network/data/repository/api_request_repository_impl.dart';
 import 'package:uae_top_up/src/feature/network/domain/repository/api_request_repository.dart';
+import 'package:uae_top_up/src/feature/network/domain/util/api_general_handler.dart';
 import 'package:uae_top_up/src/feature/server_mocks/domain/util/server_client.dart';
 import 'package:uae_top_up/src/feature/transaction/data/repository/transaction_repository_impl.dart';
 import 'package:uae_top_up/src/feature/transaction/domain/repository/transaction_repository.dart';
@@ -26,9 +27,14 @@ class DIManager {
     GetIt.instance.registerSingleton<http.Client>(
       ServerClient(localStorage: getIt<LocalStorageRepository>()).mockClient(),
     );
+
+    GetIt.instance.registerSingleton<APIRequestHandlers>(
+      APIRequestHandlers(),
+    );
     GetIt.instance.registerSingleton<ApiRequestRepository>(
       ApiRequestRepositoryImpl(
         apiClient: getIt<http.Client>(),
+        apiRequestHandlers: getIt<APIRequestHandlers>(),
       ),
     );
     GetIt.instance.registerSingleton<Dialogs>(Dialogs());
