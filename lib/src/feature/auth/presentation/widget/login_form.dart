@@ -45,7 +45,7 @@ class LoginForm extends StatelessWidget {
             hintText: AppLocalizations.passwordHint.tr(),
           ),
           validator: (value) => value!.isEmpty
-              ? AppLocalizations.passwordHint.tr()
+              ? AppLocalizations.fieldRequired.tr()
               : value.length < 8
                   ? AppLocalizations.shortPassword.tr()
                   : null,
