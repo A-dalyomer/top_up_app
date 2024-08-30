@@ -16,3 +16,19 @@ class Beneficiary extends Equatable {
   @override
   List<Object?> get props => [id, name, phoneNumber];
 }
+
+extension BeneficiaryEntityExtensions on Beneficiary {
+  Beneficiary copyWith({
+    int? id,
+    String? name,
+    String? phoneNumber,
+    List<Transaction>? transactions,
+  }) {
+    return Beneficiary(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      phoneNumber: phoneNumber ?? this.phoneNumber,
+      transactions: transactions ?? this.transactions,
+    );
+  }
+}
