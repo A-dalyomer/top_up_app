@@ -19,5 +19,6 @@ class CoreConfigManager extends ChangeNotifier {
       ConstApiPaths.getAppConfig,
     );
     appConfig = AppConfigModel.fromJson(response);
+    notifyListeners();
   }
 }
