@@ -12,4 +12,12 @@ class Dialogs {
       },
     );
   }
+
+  showWidgetDialog(BuildContext context, Widget Function(BuildContext) widget) {
+    showAdaptiveDialog(
+      barrierDismissible: true,
+      context: context,
+      builder: widget,
+    );
+  }
 }
