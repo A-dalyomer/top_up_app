@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -5,16 +6,20 @@ import 'package:mockito/mockito.dart';
 import 'package:provider/provider.dart';
 import 'package:uae_top_up/src/core/util/dependency_injection_manager.dart';
 import 'package:uae_top_up/src/core/util/dialogs.dart';
+import 'package:uae_top_up/src/core/widget/action_button.dart';
 import 'package:uae_top_up/src/core/widget/loading_indicator.dart';
 import 'package:uae_top_up/src/feature/configuration/domain/entity/app_config.dart';
 import 'package:uae_top_up/src/feature/configuration/domain/util/app_themes.dart';
 import 'package:uae_top_up/src/feature/configuration/domain/util/core_config_manager.dart';
+import 'package:uae_top_up/src/feature/localization/domain/util/app_localizations.dart';
 import 'package:uae_top_up/src/feature/network/domain/repository/api_request_repository.dart';
 import 'package:uae_top_up/src/feature/transaction/presentation/widget/transaction_history_item.dart';
 import 'package:uae_top_up/src/feature/user_management/domain/repository/user_management_repository.dart';
 import 'package:uae_top_up/src/feature/user_management/domain/util/transaction_checks.dart';
 import 'package:uae_top_up/src/feature/user_management/domain/util/user_actions.dart';
 import 'package:uae_top_up/src/feature/user_management/presentation/provider/user_management_provider.dart';
+import 'package:uae_top_up/src/feature/user_management/presentation/widget/add_beneficiary_sheet.dart';
+import 'package:uae_top_up/src/feature/user_management/presentation/widget/transaction_sheet.dart';
 import 'package:uae_top_up/src/feature/user_top_up/presentation/screen/home_screen.dart';
 import 'package:uae_top_up/src/feature/user_top_up/presentation/widget/beneficiary_item.dart';
 
@@ -25,22 +30,23 @@ import 'home_screen_test.mocks.dart';
   MockSpec<ApiRequestRepository>(),
   MockSpec<Dialogs>(),
   MockSpec<UserManagementRepository>(),
-  MockSpec<UserActions>(),
   MockSpec<TransactionChecks>(),
 ])
 void main() {
   late Widget widget;
   late UserManagementProvider userProvider;
   late CoreConfigManager coreConfigManager;
+  late UserActions userActions;
   late MockApiRequestRepository apiRequestRepository;
   late MockDialogs mockDialogs;
 
   setUp(
     () async {
+      userActions = UserActions();
       userProvider = UserManagementProvider(
         MockUserManagementRepository(),
         MockTransactionChecks(),
-        MockUserActions(),
+        userActions,
       );
       apiRequestRepository = MockApiRequestRepository();
       mockDialogs = MockDialogs();
@@ -89,7 +95,7 @@ void main() {
       "Test injections",
       (widgetTester) async {
         await widgetTester.pumpWidget(widget);
-        setUpAll(() async => await DIManager.initAppInjections());
+        await DIManager.initAppInjections();
       },
     );
 
@@ -148,6 +154,49 @@ void main() {
         await widgetTester.pump();
 
         when(mockDialogs.showWidgetDialog(any, any)).thenReturn(() {});
+      },
+    );
+
+    testWidgets(
+      "Press Add beneficiary button",
+      (widgetTester) async {
+        await widgetTester.pumpWidget(widget);
+        await initConfig(widgetTester);
+        final addBeneficiarySheet = find.byType(AddBeneficiarySheet);
+        final addBeneficiaryButton = find.byWidgetPredicate(
+          (widget) =>
+              widget is ActionButton &&
+              widget.title == AppLocalizations.addBeneficiary.tr(),
+        );
+
+        await widgetTester.tap(addBeneficiaryButton);
+        await widgetTester.pumpAndSettle();
+
+        expect(addBeneficiarySheet, findsOneWidget);
+      },
+    );
+
+    testWidgets(
+      "Press Recharge button",
+      (widgetTester) async {
+        userProvider.user = createTestUser(
+          beneficiaries: [
+            createTestBeneficiary(),
+          ],
+        );
+        userProvider.notifyListeners();
+        await widgetTester.pump();
+
+        await widgetTester.pumpWidget(widget);
+        await initConfig(widgetTester);
+        final transactionSheet = find.byType(TransactionSheet);
+        final rechargeButton =
+            find.text(AppLocalizations.rechargeNow.tr()).first;
+
+        await widgetTester.tap(rechargeButton);
+        await widgetTester.pumpAndSettle();
+
+        expect(transactionSheet, findsOneWidget);
       },
     );
   });
