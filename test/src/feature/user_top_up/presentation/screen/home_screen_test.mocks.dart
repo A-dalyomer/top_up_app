@@ -7,27 +7,25 @@ import 'dart:async' as _i4;
 
 import 'package:flutter/material.dart' as _i5;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i15;
+import 'package:mockito/src/dummies.dart' as _i14;
 import 'package:uae_top_up/src/core/util/dialogs.dart' as _i2;
 import 'package:uae_top_up/src/feature/configuration/domain/entity/app_config.dart'
-    as _i13;
+    as _i11;
 import 'package:uae_top_up/src/feature/network/domain/repository/api_request_repository.dart'
     as _i3;
 import 'package:uae_top_up/src/feature/transaction/data/model/transaction_model.dart'
     as _i9;
 import 'package:uae_top_up/src/feature/transaction/domain/entity/transaction.dart'
-    as _i14;
+    as _i12;
 import 'package:uae_top_up/src/feature/user_management/data/model/beneficiary_model.dart'
     as _i8;
 import 'package:uae_top_up/src/feature/user_management/domain/entity/beneficiary.dart'
-    as _i11;
+    as _i13;
 import 'package:uae_top_up/src/feature/user_management/domain/entity/user.dart'
     as _i7;
 import 'package:uae_top_up/src/feature/user_management/domain/repository/user_management_repository.dart'
     as _i6;
 import 'package:uae_top_up/src/feature/user_management/domain/util/transaction_checks.dart'
-    as _i12;
-import 'package:uae_top_up/src/feature/user_management/domain/util/user_actions.dart'
     as _i10;
 
 // ignore_for_file: type=lint
@@ -236,40 +234,10 @@ class MockUserManagementRepository extends _i1.Mock
       ) as _i4.Future<_i9.TransactionModel?>);
 }
 
-/// A class which mocks [UserActions].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockUserActions extends _i1.Mock implements _i10.UserActions {
-  @override
-  void showAddBeneficiarySheet(_i5.BuildContext? context) => super.noSuchMethod(
-        Invocation.method(
-          #showAddBeneficiarySheet,
-          [context],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  void showTransactionSheet(
-    _i5.BuildContext? context,
-    _i11.Beneficiary? beneficiary,
-  ) =>
-      super.noSuchMethod(
-        Invocation.method(
-          #showTransactionSheet,
-          [
-            context,
-            beneficiary,
-          ],
-        ),
-        returnValueForMissingStub: null,
-      );
-}
-
 /// A class which mocks [TransactionChecks].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockTransactionChecks extends _i1.Mock implements _i12.TransactionChecks {
+class MockTransactionChecks extends _i1.Mock implements _i10.TransactionChecks {
   @override
   _i2.Dialogs get dialogs => (super.noSuchMethod(
         Invocation.getter(#dialogs),
@@ -288,7 +256,7 @@ class MockTransactionChecks extends _i1.Mock implements _i12.TransactionChecks {
     _i5.BuildContext? context, {
     required _i9.TransactionModel? transaction,
     required _i7.User? user,
-    required _i13.AppConfig? appConfig,
+    required _i11.AppConfig? appConfig,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -326,9 +294,9 @@ class MockTransactionChecks extends _i1.Mock implements _i12.TransactionChecks {
 
   @override
   bool checkExceedsMonthTransactions(
-    _i14.Transaction? transaction, {
-    required List<_i14.Transaction>? savedUserTransaction,
-    required _i13.AppConfig? appConfig,
+    _i12.Transaction? transaction, {
+    required List<_i12.Transaction>? savedUserTransaction,
+    required _i11.AppConfig? appConfig,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -345,7 +313,7 @@ class MockTransactionChecks extends _i1.Mock implements _i12.TransactionChecks {
 
   @override
   double getTotalUserMonthTransactions(
-    List<_i14.Transaction>? savedUserTransaction,
+    List<_i12.Transaction>? savedUserTransaction,
     DateTime? transactionDateMonth,
   ) =>
       (super.noSuchMethod(
@@ -362,10 +330,10 @@ class MockTransactionChecks extends _i1.Mock implements _i12.TransactionChecks {
 
   @override
   bool checkExceedsBeneficiaryTransactions(
-    _i14.Transaction? transaction, {
-    required List<_i11.Beneficiary>? savedUserBeneficiaries,
+    _i12.Transaction? transaction, {
+    required List<_i13.Beneficiary>? savedUserBeneficiaries,
     required dynamic userVerified,
-    required _i13.AppConfig? appConfig,
+    required _i11.AppConfig? appConfig,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -385,7 +353,7 @@ class MockTransactionChecks extends _i1.Mock implements _i12.TransactionChecks {
   double getTotalBeneficiaryTransactions({
     required String? targetUserPhoneNumber,
     required DateTime? transactionDateMonth,
-    required List<_i11.Beneficiary>? savedUserBeneficiaries,
+    required List<_i13.Beneficiary>? savedUserBeneficiaries,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -405,8 +373,8 @@ class MockTransactionChecks extends _i1.Mock implements _i12.TransactionChecks {
   String handleBeneficiaryMaxTransaction({
     required String? targetUserPhoneNumber,
     required DateTime? dateTime,
-    required _i13.AppConfig? appConfig,
-    required List<_i11.Beneficiary>? beneficiaries,
+    required _i11.AppConfig? appConfig,
+    required List<_i13.Beneficiary>? beneficiaries,
     required bool? userVerified,
   }) =>
       (super.noSuchMethod(
@@ -421,7 +389,7 @@ class MockTransactionChecks extends _i1.Mock implements _i12.TransactionChecks {
             #userVerified: userVerified,
           },
         ),
-        returnValue: _i15.dummyValue<String>(
+        returnValue: _i14.dummyValue<String>(
           this,
           Invocation.method(
             #handleBeneficiaryMaxTransaction,
@@ -435,7 +403,7 @@ class MockTransactionChecks extends _i1.Mock implements _i12.TransactionChecks {
             },
           ),
         ),
-        returnValueForMissingStub: _i15.dummyValue<String>(
+        returnValueForMissingStub: _i14.dummyValue<String>(
           this,
           Invocation.method(
             #handleBeneficiaryMaxTransaction,

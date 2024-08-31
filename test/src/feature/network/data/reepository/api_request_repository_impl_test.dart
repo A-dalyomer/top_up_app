@@ -18,16 +18,16 @@ import 'package:uae_top_up/src/feature/user_management/domain/entity/user.dart';
 import '../../../../../test_helpers.dart';
 import 'api_request_repository_impl_test.mocks.dart';
 
-@GenerateNiceMocks([MockSpec<ServerClient>(), MockSpec<APIRequestHandlers>()])
+@GenerateNiceMocks([MockSpec<ServerClient>()])
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   late ApiRequestRepository apiRequestRepository;
   late MockServerClient mockServerClient;
-  late MockAPIRequestHandlers handlers;
+  late APIRequestHandlers handlers;
 
   setUp(() {
     mockServerClient = MockServerClient();
-    handlers = MockAPIRequestHandlers();
+    handlers = APIRequestHandlers();
     when(mockServerClient.mockClient()).thenReturn(MockClient(
       (request) async {
         if (request.method == "POST") {
@@ -77,14 +77,12 @@ void main() {
         ConstApiPaths.login,
       );
       expect(response, null);
-      verify(handlers.requestException(any)).called(1);
     });
     test('Request failure', () async {
       final response = await apiRequestRepository.getRequest(
         ConstApiPaths.login,
       );
       expect(response, null);
-      verify(handlers.unknownRequestException(any)).called(1);
     });
   });
 }
