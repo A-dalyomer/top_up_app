@@ -35,7 +35,10 @@ void main() async {
             lazy: false,
           ),
           ChangeNotifierProvider(
-            create: (context) => SettingsProvider(context),
+            create: (context) => SettingsProvider(
+              context,
+              localStorage: DIManager.getIt<LocalStorageRepository>(),
+            ),
             lazy: false,
           ),
           ChangeNotifierProvider(

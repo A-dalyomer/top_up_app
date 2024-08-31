@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:uae_top_up/src/core/util/dependency_injection_manager.dart';
 import 'package:uae_top_up/src/feature/local_storage/data/constants/const_storage_keys.dart';
 import 'package:uae_top_up/src/feature/local_storage/domain/repository/local_storage_repository.dart';
 
 class SettingsProvider extends ChangeNotifier {
-  SettingsProvider(this.context) {
+  SettingsProvider(this.context, {required this.localStorage}) {
     loadThemeMode();
   }
   final BuildContext context;
+  final LocalStorageRepository localStorage;
 
   ThemeMode appThemeMode = ThemeMode.light;
 
@@ -27,17 +27,15 @@ class SettingsProvider extends ChangeNotifier {
   }
 
   Future<void> saveActiveThemeState(ThemeMode appliedTheme) async {
-    final localeStorage = DIManager.getIt<LocalStorageRepository>();
-    await localeStorage.writeValue(
+    await localStorage.writeValue(
       ConstStorageKeys.savedThemeMode,
       appliedTheme.index.toString(),
     );
   }
 
   Future<ThemeMode> getCurrentSavedTheme() async {
-    final localeStorage = DIManager.getIt<LocalStorageRepository>();
     final String themeIndexString =
-        await localeStorage.readValue(ConstStorageKeys.savedThemeMode) ?? '1';
+        await localStorage.readValue(ConstStorageKeys.savedThemeMode) ?? '1';
     return ThemeMode.values[int.parse(themeIndexString)];
   }
 }
