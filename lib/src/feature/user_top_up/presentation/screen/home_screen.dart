@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:uae_top_up/src/core/util/dialogs.dart';
 import 'package:uae_top_up/src/feature/configuration/presentation/widget/settings_dialog.dart';
 import 'package:uae_top_up/src/feature/localization/domain/util/app_localizations.dart';
 import 'package:uae_top_up/src/feature/user_management/presentation/provider/user_management_provider.dart';
@@ -11,7 +12,8 @@ import 'package:uae_top_up/src/feature/transaction/presentation/widget/transacti
 import '../widget/add_beneficiary_button.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({super.key, required this.dialogs});
+  final Dialogs dialogs;
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +35,9 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           IconButton(
-            onPressed: () => showAdaptiveDialog(
-              context: context,
-              builder: (context) => const SettingsDialog(),
+            onPressed: () => dialogs.showWidgetDialog(
+              context,
+              (context) => const SettingsDialog(),
             ),
             icon: Icon(
               Icons.settings,

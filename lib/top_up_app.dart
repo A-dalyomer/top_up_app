@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:uae_top_up/src/core/util/dependency_injection_manager.dart';
+import 'package:uae_top_up/src/core/util/dialogs.dart';
 import 'package:uae_top_up/src/core/widget/initialization_screen.dart';
 import 'package:uae_top_up/src/feature/auth/presentation/provider/login_provider.dart';
 import 'package:uae_top_up/src/feature/auth/presentation/screen/login_screen.dart';
@@ -55,7 +56,9 @@ class _TopUpAppState extends State<TopUpApp> {
               ),
             );
           }
-          return const HomeScreen();
+          return HomeScreen(
+            dialogs: DIManager.getIt<Dialogs>(),
+          );
         },
       ),
     );

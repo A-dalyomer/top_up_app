@@ -9,6 +9,7 @@ import 'package:uae_top_up/src/feature/user_management/domain/util/user_actions.
 import 'src/core/util/dependency_injection_manager.dart';
 import 'src/feature/configuration/domain/util/core_config_manager.dart';
 import 'src/feature/configuration/presentation/provider/settings_provider.dart';
+import 'src/feature/local_storage/domain/repository/local_storage_repository.dart';
 import 'src/feature/network/domain/repository/api_request_repository.dart';
 import 'src/feature/user_management/domain/repository/user_management_repository.dart';
 import 'src/feature/user_management/presentation/provider/user_management_provider.dart';
