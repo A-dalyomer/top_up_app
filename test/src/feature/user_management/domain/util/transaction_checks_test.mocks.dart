@@ -39,4 +39,20 @@ class MockDialogs extends _i1.Mock implements _i2.Dialogs {
         ),
         returnValueForMissingStub: null,
       );
+
+  @override
+  dynamic showWidgetDialog(
+    _i3.BuildContext? context,
+    _i3.Widget Function(_i3.BuildContext)? widget,
+  ) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #showWidgetDialog,
+          [
+            context,
+            widget,
+          ],
+        ),
+        returnValueForMissingStub: null,
+      );
 }
