@@ -47,5 +47,18 @@ void main() {
 
       expect(madeTransaction, isNull);
     });
+
+    test('Make transaction fails with parse exception', () async {
+      final Transaction newTransaction = createTestTransaction();
+
+      when(
+        apiRequestRepository.postRequest(any, body: anyNamed('body')),
+      ).thenAnswer((_) async => {});
+
+      final TransactionModel? madeTransaction = await transactionRepository
+          .makeTransaction(transaction: newTransaction);
+
+      expect(madeTransaction, isNull);
+    });
   });
 }
