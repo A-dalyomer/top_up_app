@@ -200,8 +200,8 @@ class UserManagementProvider extends ChangeNotifier {
   Future<void> updateBeneficiaries(BeneficiaryModel newBeneficiary) async {
     final List<Beneficiary> updatedBeneficiaries =
         List.from([...user.beneficiaries, newBeneficiary]);
-    user.copyWith(beneficiaries: updatedBeneficiaries);
-    await userManagementRepository.saveUser(newUser: user);
+    final newUser = user.copyWith(beneficiaries: updatedBeneficiaries);
+    await updateUser(newUser);
   }
 
   /// Update local transactions by adding the passed [newBeneficiary]
