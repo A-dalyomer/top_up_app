@@ -15,13 +15,13 @@ import 'package:uae_top_up/src/feature/local_storage/domain/repository/local_sto
 import 'package:uae_top_up/src/feature/server_mocks/domain/util/server_client.dart'
     as _i7;
 import 'package:uae_top_up/src/feature/transaction/data/model/transaction_model.dart'
-    as _i9;
-import 'package:uae_top_up/src/feature/transaction/domain/entity/transaction.dart'
     as _i10;
+import 'package:uae_top_up/src/feature/transaction/domain/entity/transaction.dart'
+    as _i11;
 import 'package:uae_top_up/src/feature/user_management/data/model/user_model.dart'
     as _i6;
 import 'package:uae_top_up/src/feature/user_management/domain/entity/beneficiary.dart'
-    as _i11;
+    as _i9;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -238,8 +238,47 @@ class MockServerClient extends _i1.Mock implements _i7.ServerClient {
       ) as _i8.Future<_i4.Response>);
 
   @override
+  _i8.Future<_i4.Response> removeBeneficiaryResponse({
+    required _i9.Beneficiary? beneficiary,
+    required String? senderPhoneNumber,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #removeBeneficiaryResponse,
+          [],
+          {
+            #beneficiary: beneficiary,
+            #senderPhoneNumber: senderPhoneNumber,
+          },
+        ),
+        returnValue: _i8.Future<_i4.Response>.value(_FakeResponse_2(
+          this,
+          Invocation.method(
+            #removeBeneficiaryResponse,
+            [],
+            {
+              #beneficiary: beneficiary,
+              #senderPhoneNumber: senderPhoneNumber,
+            },
+          ),
+        )),
+        returnValueForMissingStub:
+            _i8.Future<_i4.Response>.value(_FakeResponse_2(
+          this,
+          Invocation.method(
+            #removeBeneficiaryResponse,
+            [],
+            {
+              #beneficiary: beneficiary,
+              #senderPhoneNumber: senderPhoneNumber,
+            },
+          ),
+        )),
+      ) as _i8.Future<_i4.Response>);
+
+  @override
   _i8.Future<_i4.Response> makeTransactionResponse(
-          {required _i9.TransactionModel? newTransaction}) =>
+          {required _i10.TransactionModel? newTransaction}) =>
       (super.noSuchMethod(
         Invocation.method(
           #makeTransactionResponse,
@@ -267,9 +306,9 @@ class MockServerClient extends _i1.Mock implements _i7.ServerClient {
 
   @override
   bool checkTransactionPossible(
-    _i10.Transaction? transaction, {
-    required List<_i10.Transaction>? userTransactions,
-    required List<_i11.Beneficiary>? userBeneficiaries,
+    _i11.Transaction? transaction, {
+    required List<_i11.Transaction>? userTransactions,
+    required List<_i9.Beneficiary>? userBeneficiaries,
     required bool? userVerified,
   }) =>
       (super.noSuchMethod(

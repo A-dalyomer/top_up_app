@@ -95,6 +95,35 @@ void main() {
       expect(newBeneficiary, isNull);
     });
 
+    test('Remove beneficiary success', () async {
+      final Beneficiary beneficiary = createTestBeneficiary();
+
+      when(mockApiRequestRepository.postRequest(
+        any,
+        body: anyNamed("body"),
+      )).thenAnswer((_) async => {"success": true});
+      bool removed = await userManagementProvider.removeBeneficiary(
+        senderPhoneNumber: createTestUser().phoneNumber,
+        beneficiary: beneficiary,
+      );
+
+      expect(removed, isTrue);
+    });
+    test('Remove beneficiary fails', () async {
+      final Beneficiary beneficiary = createTestBeneficiary();
+
+      when(mockApiRequestRepository.postRequest(
+        any,
+        body: anyNamed("body"),
+      )).thenAnswer((_) async => {"success": isFalse});
+      bool removed = await userManagementProvider.removeBeneficiary(
+        senderPhoneNumber: createTestUser().phoneNumber,
+        beneficiary: beneficiary,
+      );
+
+      expect(removed, isFalse);
+    });
+
     test('Create transaction', () async {
       final TransactionModel resultTransaction = createTestTransaction();
 

@@ -12,6 +12,7 @@ import 'package:uae_top_up/src/feature/user_management/data/model/user_model.dar
 
 import 'package:uae_top_up/src/feature/user_management/domain/entity/user.dart';
 
+import '../../domain/entity/beneficiary.dart';
 import '../../domain/repository/user_management_repository.dart';
 
 /// Implementation of `UserManagementRepository`
@@ -75,6 +76,28 @@ class UserManagementRepositoryImpl implements UserManagementRepository {
     } catch (exception) {
       APIParseHandlers.handleModelParseException(exception);
       return null;
+    }
+  }
+
+  @override
+  Future<bool> removeBeneficiary({
+    required Beneficiary beneficiary,
+    required String senderPhoneNumber,
+  }) async {
+    final Map<String, dynamic>? response =
+        await apiRequestRepository.postRequest(
+      ConstApiPaths.removeBeneficiary,
+      body: {
+        ...BeneficiaryModel.fromEntity(beneficiary).toJson(),
+        "sender_phone_number": senderPhoneNumber,
+      },
+    );
+    if (response == null) return false;
+    try {
+      return response['success'];
+    } catch (exception) {
+      APIParseHandlers.handleModelParseException(exception);
+      return false;
     }
   }
 

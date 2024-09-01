@@ -72,6 +72,14 @@ class ServerClient {
           phoneNumber: phoneNumber!,
           beneficiaryName: beneficiaryName!,
         );
+      case ConstApiPaths.removeBeneficiary:
+        final beneficiary = BeneficiaryModel.fromJson(jsonDecode(request.body));
+        final String? senderPhoneNumber =
+            jsonDecode(request.body)['sender_phone_number'];
+        return await removeBeneficiaryResponse(
+          beneficiary: beneficiary,
+          senderPhoneNumber: senderPhoneNumber!,
+        );
       case ConstApiPaths.makeTransaction:
         final TransactionModel newTransaction =
             TransactionModel.fromJson(jsonDecode(request.body));
@@ -126,6 +134,28 @@ class ServerClient {
     await saveUsers(savedUsers);
     return http.Response(
       jsonEncode(newBeneficiary.toJson()),
+      200,
+    );
+  }
+
+  Future<http.Response> removeBeneficiaryResponse({
+    required Beneficiary beneficiary,
+    required String senderPhoneNumber,
+  }) async {
+    final savedUsers = await getSavedUsersList();
+    final senderUser = savedUsers.singleWhere(
+      (element) => element.phoneNumber == senderPhoneNumber,
+    );
+    if (!senderUser.beneficiaries.contains(beneficiary)) {
+      return http.Response(
+        jsonEncode({"message": "NO user"}),
+        412,
+      );
+    }
+    senderUser.beneficiaries.remove(beneficiary);
+    await saveUsers(savedUsers);
+    return http.Response(
+      jsonEncode({"success": true}),
       200,
     );
   }

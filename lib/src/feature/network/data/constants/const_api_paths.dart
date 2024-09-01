@@ -8,6 +8,7 @@ class ConstApiPaths {
   static const String login = '/login';
   static const String makeTransaction = '/transaction';
   static const String addBeneficiary = '/beneficiary/add';
+  static const String removeBeneficiary = '/beneficiary/remove';
   static const String addBalance = '/user/add_balance';
   static const String debitBalance = '/user/debit_balance';
 }

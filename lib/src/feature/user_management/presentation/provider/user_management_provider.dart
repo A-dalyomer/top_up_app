@@ -130,6 +130,20 @@ class UserManagementProvider extends ChangeNotifier {
     return addedBeneficiary != null;
   }
 
+  /// Remove user's [beneficiary] using the user repository
+  /// Removes the beneficiary from user's beneficiaries list if succeeded
+  /// returns true if remove success
+  Future<bool> removeBeneficiary(Beneficiary beneficiary) async {
+    bool removed = await userManagementRepository.removeBeneficiary(
+      beneficiary: beneficiary,
+      senderPhoneNumber: user.phoneNumber,
+    );
+    if (removed) {
+      await updateRemoveBeneficiary(beneficiary);
+    }
+    return removed;
+  }
+
   /// Shows transaction sheet from [userActions]
   void showTransactionSheet(context, Beneficiary beneficiary) {
     userActions.showTransactionSheet(context, beneficiary);
@@ -200,6 +214,16 @@ class UserManagementProvider extends ChangeNotifier {
   Future<void> updateBeneficiaries(BeneficiaryModel newBeneficiary) async {
     final List<Beneficiary> updatedBeneficiaries =
         List.from([...user.beneficiaries, newBeneficiary]);
+    final newUser = user.copyWith(beneficiaries: updatedBeneficiaries);
+    await updateUser(newUser);
+  }
+
+  /// Update local beneficiaries list by removing the passed [newBeneficiary]
+  /// Then save the new user info
+  Future<void> updateRemoveBeneficiary(Beneficiary beneficiary) async {
+    final List<Beneficiary> updatedBeneficiaries =
+        List.from(user.beneficiaries);
+    updatedBeneficiaries.removeWhere((element) => element == beneficiary);
     final newUser = user.copyWith(beneficiaries: updatedBeneficiaries);
     await updateUser(newUser);
   }

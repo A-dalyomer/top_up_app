@@ -140,6 +140,41 @@ void main() {
       expect(addedBeneficiary, isFalse);
     });
 
+    test('User Remove Beneficiary success', () async {
+      final testBeneficiary = createTestBeneficiary();
+      final testUser = createTestUser(beneficiaries: [testBeneficiary]);
+      userManagementProvider.user = testUser;
+
+      when(
+        userManagementRepository.removeBeneficiary(
+          senderPhoneNumber: anyNamed('senderPhoneNumber'),
+          beneficiary: anyNamed("beneficiary"),
+        ),
+      ).thenAnswer((_) async => true);
+
+      await userManagementProvider.removeBeneficiary(
+        testBeneficiary,
+      );
+      expect(userManagementProvider.user.beneficiaries.length, 0);
+    });
+    test('User Remove Beneficiary fails', () async {
+      final testBeneficiary = createTestBeneficiary();
+      final testUser = createTestUser(beneficiaries: [testBeneficiary]);
+      userManagementProvider.user = testUser;
+
+      when(
+        userManagementRepository.removeBeneficiary(
+          senderPhoneNumber: anyNamed('senderPhoneNumber'),
+          beneficiary: anyNamed("beneficiary"),
+        ),
+      ).thenAnswer((_) async => false);
+
+      await userManagementProvider.removeBeneficiary(
+        testBeneficiary,
+      );
+      expect(userManagementProvider.user.beneficiaries.length, 1);
+    });
+
     test('User Make transaction success', () async {
       final beneficiary = createTestBeneficiary();
       final testUser = createTestUser(beneficiaries: [beneficiary]);

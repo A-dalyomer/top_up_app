@@ -1,4 +1,5 @@
 import 'package:uae_top_up/src/feature/transaction/data/model/transaction_model.dart';
+import 'package:uae_top_up/src/feature/user_management/domain/entity/beneficiary.dart';
 
 import '../../data/model/beneficiary_model.dart';
 import '../entity/user.dart';
@@ -33,6 +34,12 @@ abstract class UserManagementRepository {
   Future<BeneficiaryModel?> addBeneficiary({
     required String name,
     required String phoneNumber,
+    required String senderPhoneNumber,
+  });
+
+  /// Removes a beneficiary from user list
+  Future<bool> removeBeneficiary({
+    required Beneficiary beneficiary,
     required String senderPhoneNumber,
   });
 

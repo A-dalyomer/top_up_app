@@ -5,20 +5,20 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i4;
 
-import 'package:flutter/material.dart' as _i9;
+import 'package:flutter/material.dart' as _i10;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i14;
 import 'package:uae_top_up/src/core/util/dialogs.dart' as _i2;
 import 'package:uae_top_up/src/feature/configuration/domain/entity/app_config.dart'
     as _i12;
 import 'package:uae_top_up/src/feature/transaction/data/model/transaction_model.dart'
-    as _i7;
+    as _i8;
 import 'package:uae_top_up/src/feature/transaction/domain/entity/transaction.dart'
     as _i13;
 import 'package:uae_top_up/src/feature/user_management/data/model/beneficiary_model.dart'
     as _i6;
 import 'package:uae_top_up/src/feature/user_management/domain/entity/beneficiary.dart'
-    as _i10;
+    as _i7;
 import 'package:uae_top_up/src/feature/user_management/domain/entity/user.dart'
     as _i5;
 import 'package:uae_top_up/src/feature/user_management/domain/repository/user_management_repository.dart'
@@ -26,7 +26,7 @@ import 'package:uae_top_up/src/feature/user_management/domain/repository/user_ma
 import 'package:uae_top_up/src/feature/user_management/domain/util/transaction_checks.dart'
     as _i11;
 import 'package:uae_top_up/src/feature/user_management/domain/util/user_actions.dart'
-    as _i8;
+    as _i9;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -138,25 +138,44 @@ class MockUserManagementRepository extends _i1.Mock
       ) as _i4.Future<_i6.BeneficiaryModel?>);
 
   @override
-  _i4.Future<_i7.TransactionModel?> makeTransaction(
-          {required _i7.TransactionModel? transaction}) =>
+  _i4.Future<bool> removeBeneficiary({
+    required _i7.Beneficiary? beneficiary,
+    required String? senderPhoneNumber,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #removeBeneficiary,
+          [],
+          {
+            #beneficiary: beneficiary,
+            #senderPhoneNumber: senderPhoneNumber,
+          },
+        ),
+        returnValue: _i4.Future<bool>.value(false),
+        returnValueForMissingStub: _i4.Future<bool>.value(false),
+      ) as _i4.Future<bool>);
+
+  @override
+  _i4.Future<_i8.TransactionModel?> makeTransaction(
+          {required _i8.TransactionModel? transaction}) =>
       (super.noSuchMethod(
         Invocation.method(
           #makeTransaction,
           [],
           {#transaction: transaction},
         ),
-        returnValue: _i4.Future<_i7.TransactionModel?>.value(),
-        returnValueForMissingStub: _i4.Future<_i7.TransactionModel?>.value(),
-      ) as _i4.Future<_i7.TransactionModel?>);
+        returnValue: _i4.Future<_i8.TransactionModel?>.value(),
+        returnValueForMissingStub: _i4.Future<_i8.TransactionModel?>.value(),
+      ) as _i4.Future<_i8.TransactionModel?>);
 }
 
 /// A class which mocks [UserActions].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockUserActions extends _i1.Mock implements _i8.UserActions {
+class MockUserActions extends _i1.Mock implements _i9.UserActions {
   @override
-  void showAddBeneficiarySheet(_i9.BuildContext? context) => super.noSuchMethod(
+  void showAddBeneficiarySheet(_i10.BuildContext? context) =>
+      super.noSuchMethod(
         Invocation.method(
           #showAddBeneficiarySheet,
           [context],
@@ -166,8 +185,8 @@ class MockUserActions extends _i1.Mock implements _i8.UserActions {
 
   @override
   void showTransactionSheet(
-    _i9.BuildContext? context,
-    _i10.Beneficiary? beneficiary,
+    _i10.BuildContext? context,
+    _i7.Beneficiary? beneficiary,
   ) =>
       super.noSuchMethod(
         Invocation.method(
@@ -200,8 +219,8 @@ class MockTransactionChecks extends _i1.Mock implements _i11.TransactionChecks {
 
   @override
   bool checkTransactionPossible(
-    _i9.BuildContext? context, {
-    required _i7.TransactionModel? transaction,
+    _i10.BuildContext? context, {
+    required _i8.TransactionModel? transaction,
     required _i5.User? user,
     required _i12.AppConfig? appConfig,
   }) =>
@@ -278,7 +297,7 @@ class MockTransactionChecks extends _i1.Mock implements _i11.TransactionChecks {
   @override
   bool checkExceedsBeneficiaryTransactions(
     _i13.Transaction? transaction, {
-    required List<_i10.Beneficiary>? savedUserBeneficiaries,
+    required List<_i7.Beneficiary>? savedUserBeneficiaries,
     required dynamic userVerified,
     required _i12.AppConfig? appConfig,
   }) =>
@@ -300,7 +319,7 @@ class MockTransactionChecks extends _i1.Mock implements _i11.TransactionChecks {
   double getTotalBeneficiaryTransactions({
     required String? targetUserPhoneNumber,
     required DateTime? transactionDateMonth,
-    required List<_i10.Beneficiary>? savedUserBeneficiaries,
+    required List<_i7.Beneficiary>? savedUserBeneficiaries,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -321,7 +340,7 @@ class MockTransactionChecks extends _i1.Mock implements _i11.TransactionChecks {
     required String? targetUserPhoneNumber,
     required DateTime? dateTime,
     required _i12.AppConfig? appConfig,
-    required List<_i10.Beneficiary>? beneficiaries,
+    required List<_i7.Beneficiary>? beneficiaries,
     required bool? userVerified,
   }) =>
       (super.noSuchMethod(

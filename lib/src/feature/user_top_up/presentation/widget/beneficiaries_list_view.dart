@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:uae_top_up/src/core/extension/size_extensions.dart';
 import 'package:uae_top_up/src/feature/user_management/domain/entity/beneficiary.dart';
 import 'package:uae_top_up/src/feature/user_management/presentation/provider/user_management_provider.dart';
 
@@ -24,6 +25,10 @@ class _BeneficiariesListViewState extends State<BeneficiariesListView> {
         );
   }
 
+  Future<void> removeBeneficiary(Beneficiary beneficiary) async {
+    await context.read<UserManagementProvider>().removeBeneficiary(beneficiary);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Selector<UserManagementProvider, int>(
@@ -40,25 +45,30 @@ class _BeneficiariesListViewState extends State<BeneficiariesListView> {
         }
         if (savedBeneficiaries.isEmpty) return const SizedBox.shrink();
         return SizedBox(
-          height: 160,
-          child: ListView.builder(
-            controller: scrollController,
-            scrollDirection: Axis.horizontal,
-            itemCount: savedBeneficiaries.length,
-            itemBuilder: (context, index) {
-              final Beneficiary beneficiary =
-                  savedBeneficiaries[savedBeneficiaries.length - 1 - index];
-              return Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 16.0,
-                  horizontal: 6,
-                ),
-                child: BeneficiaryItem(
-                  beneficiary: beneficiary,
-                  onButtonTap: () => showTransactionSheet(beneficiary),
-                ),
-              );
-            },
+          height: 200,
+          child: OverflowBox(
+            maxWidth: 1.width(context),
+            child: ListView.builder(
+              controller: scrollController,
+              scrollDirection: Axis.horizontal,
+              itemCount: savedBeneficiaries.length,
+              itemBuilder: (context, index) {
+                final Beneficiary beneficiary =
+                    savedBeneficiaries[savedBeneficiaries.length - 1 - index];
+                return Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 16.0,
+                    horizontal: 6,
+                  ),
+                  child: BeneficiaryItem(
+                    beneficiary: beneficiary,
+                    onButtonTap: () => showTransactionSheet(beneficiary),
+                    onDeleteTap: (beneficiary) async =>
+                        await removeBeneficiary(beneficiary),
+                  ),
+                );
+              },
+            ),
           ),
         );
       },
