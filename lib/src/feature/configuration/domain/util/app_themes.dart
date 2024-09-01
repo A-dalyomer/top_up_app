@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
+/// Holds app theme data for both light and dark mode
 class AppThemes {
+  /// App light theme
   ThemeData light() {
     return ThemeData(
       scaffoldBackgroundColor: Colors.white,
@@ -47,6 +49,7 @@ class AppThemes {
     );
   }
 
+  /// App dark theme
   ThemeData dark() {
     return ThemeData(
       brightness: Brightness.dark,

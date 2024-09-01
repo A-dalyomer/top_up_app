@@ -6,6 +6,7 @@ import 'package:uae_top_up/src/core/widget/phone_number_field.dart';
 import 'package:uae_top_up/src/feature/localization/domain/util/app_localizations.dart';
 import 'package:uae_top_up/src/feature/user_management/domain/entity/beneficiary.dart';
 
+/// Add beneficiary bottom sheet content widget
 class AddBeneficiarySheet extends StatefulWidget {
   const AddBeneficiarySheet({
     super.key,
@@ -20,11 +21,20 @@ class AddBeneficiarySheet extends StatefulWidget {
 }
 
 class _AddBeneficiarySheetState extends State<AddBeneficiarySheet> {
+  /// Forms key for validation before submission
   final GlobalKey<FormState> formKey = GlobalKey();
+
+  /// Entered name state
   String beneficiaryName = '';
+
+  /// Entered phone number state
   String phoneNumber = '';
+
+  /// API Screen current state
   ApiScreenStates screenStates = ApiScreenStates.done;
 
+  /// Saves the new beneficiary after validating the form
+  /// Updates [screenStates] depending on result of [widget.onSave]
   void save() async {
     if (!(formKey.currentState?.validate() ?? false) && !widget.testMode) {
       return;

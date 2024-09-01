@@ -6,10 +6,15 @@ import '../../domain/entity/transaction.dart';
 import '../../domain/repository/transaction_repository.dart';
 import '../model/transaction_model.dart';
 
+/// Implementation of `TransactionRepository` using [ApiRequestRepository]
 class TransactionRepositoryImpl implements TransactionRepository {
   TransactionRepositoryImpl({required this.apiRequestRepository});
   final ApiRequestRepository apiRequestRepository;
 
+  /// Make the passed [transaction] API request using [apiRequestRepository]
+  /// Parses the model if not null and returns the result as `TransactionModel`
+  /// If any exception happens during data parse, a call to `APIParseHandlers`
+  /// is made to log the exception
   @override
   Future<TransactionModel?> makeTransaction({
     required Transaction transaction,

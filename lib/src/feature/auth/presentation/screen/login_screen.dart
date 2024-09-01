@@ -9,8 +9,11 @@ import 'package:uae_top_up/src/feature/localization/domain/util/app_localization
 import '../widget/login_form.dart';
 import '../widget/login_screen_header.dart';
 
+/// User login screen
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key, required this.loginProvider});
+
+  /// State Login provider
   final LoginProvider loginProvider;
 
   @override

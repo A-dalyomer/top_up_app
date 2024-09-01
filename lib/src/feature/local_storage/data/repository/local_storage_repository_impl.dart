@@ -2,8 +2,11 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import '../../domain/repository/local_storage_repository.dart';
 
+/// Implementation of `LocalStorageRepository` using [FlutterSecureStorage]
 class LocalStorageRepositoryImpl implements LocalStorageRepository {
   LocalStorageRepositoryImpl({required this.storageClient});
+
+  /// The storage client dependency
   final FlutterSecureStorage storageClient;
 
   @override

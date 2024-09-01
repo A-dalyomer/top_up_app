@@ -7,8 +7,12 @@ import 'package:uae_top_up/src/feature/configuration/domain/util/core_config_man
 import 'package:uae_top_up/src/feature/localization/domain/util/app_localizations.dart';
 import 'package:uae_top_up/src/feature/user_management/presentation/provider/user_management_provider.dart';
 
+/// Add user beneficiary button
+/// Does not show the button when user is on beneficiaries limit
 class AddBeneficiaryButton extends StatelessWidget {
   const AddBeneficiaryButton({super.key});
+
+  /// Show the transaction sheet on pressed
   void showAddBeneficiarySheet(BuildContext context) {
     final AppConfig appConfig = context.read<CoreConfigManager>().appConfig!;
     context.read<UserManagementProvider>().showAddBeneficiarySheet(
@@ -24,6 +28,8 @@ class AddBeneficiaryButton extends StatelessWidget {
       builder: (context, beneficiariesCount, child) {
         final AppConfig appConfig =
             context.read<CoreConfigManager>().appConfig!;
+
+        /// TODO: fix the limit condition
         if (beneficiariesCount > appConfig.maxActiveBeneficiaries) {
           return const SizedBox.shrink();
         }

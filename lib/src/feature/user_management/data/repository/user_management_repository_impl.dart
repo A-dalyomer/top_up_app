@@ -14,14 +14,25 @@ import 'package:uae_top_up/src/feature/user_management/domain/entity/user.dart';
 
 import '../../domain/repository/user_management_repository.dart';
 
+/// Implementation of `UserManagementRepository`
+/// using [ApiRequestRepository],[TransactionRepository]  and [LocalStorageRepository]
 class UserManagementRepositoryImpl implements UserManagementRepository {
   UserManagementRepositoryImpl(
     this.localStorage, {
     required this.apiRequestRepository,
     required this.transactionRepository,
   });
+
+  /// API request repository instance
+  /// To make API operations
   final ApiRequestRepository apiRequestRepository;
+
+  /// Transactions repository instance
+  /// To make transaction operations
   final TransactionRepository transactionRepository;
+
+  /// Local Storage repository instance
+  /// To make locale storage operations
   final LocalStorageRepository localStorage;
 
   @override

@@ -5,6 +5,8 @@ import 'package:uae_top_up/src/feature/user_management/presentation/provider/use
 
 import 'beneficiary_item.dart';
 
+/// Current user's beneficiaries list widget
+/// list widget is not shown in case the list is empty
 class BeneficiariesListView extends StatefulWidget {
   const BeneficiariesListView({super.key});
 

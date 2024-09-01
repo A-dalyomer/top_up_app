@@ -15,6 +15,7 @@ import 'src/feature/configuration/domain/entity/app_config.dart';
 import 'src/feature/configuration/domain/util/core_config_manager.dart';
 import 'src/feature/user_management/presentation/provider/user_management_provider.dart';
 
+/// The root app UI widget
 class TopUpApp extends StatefulWidget {
   const TopUpApp({super.key});
 

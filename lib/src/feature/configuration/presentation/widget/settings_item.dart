@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:uae_top_up/src/core/extension/size_extensions.dart';
 
+/// Settings item for settings dialog
 class SettingsItem extends StatelessWidget {
   const SettingsItem({
     super.key,
@@ -8,8 +9,14 @@ class SettingsItem extends StatelessWidget {
     required this.trailing,
     this.onTap,
   });
+
+  /// Item title
   final String title;
+
+  /// Item trailing widget
   final Widget trailing;
+
+  /// onItem press handler
   final VoidCallback? onTap;
 
   @override

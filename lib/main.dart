@@ -17,7 +17,11 @@ import 'top_up_app.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  /// Initialize app EasyLocalization
   await EasyLocalization.ensureInitialized();
+
+  /// Inject all the needed singletons and factories
   await DIManager.initAppInjections();
   runApp(
     EasyLocalization(

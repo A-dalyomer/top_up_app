@@ -6,12 +6,14 @@ import 'package:uae_top_up/src/feature/transaction/presentation/widget/empty_tra
 import 'package:uae_top_up/src/feature/transaction/presentation/widget/transaction_history_item.dart';
 import 'package:uae_top_up/src/feature/user_management/presentation/provider/user_management_provider.dart';
 
+/// User transaction history list
 class TransactionHistoryList extends StatelessWidget {
   const TransactionHistoryList({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Selector<UserManagementProvider, int>(
+      /// Rebuild on transaction list length change
       selector: (context, userProvider) =>
           userProvider.user.transactions.length,
       builder: (context, value, child) {

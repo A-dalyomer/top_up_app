@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// A core widget for circular indicators
 class LoadingIndicator extends StatefulWidget {
   const LoadingIndicator({super.key});
 

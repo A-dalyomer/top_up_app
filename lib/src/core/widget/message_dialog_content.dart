@@ -4,10 +4,12 @@ import 'package:uae_top_up/src/feature/localization/domain/util/app_localization
 
 import 'action_button.dart';
 
+/// The widget that is shown when calling [showMessageDialog] from [Dialogs]
 class MessageDialogContent extends StatelessWidget {
   const MessageDialogContent({super.key, required this.message});
   final String message;
 
+  /// Closes the [MessageDialogContent] on accept button presses
   void _closeDialog(BuildContext context) {
     Navigator.pop(context);
   }

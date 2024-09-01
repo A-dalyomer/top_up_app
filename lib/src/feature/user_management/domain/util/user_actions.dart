@@ -9,7 +9,9 @@ import 'package:uae_top_up/src/feature/user_management/presentation/widget/trans
 
 import '../../presentation/provider/user_management_provider.dart';
 
+/// Signed-in Users actions CTA to show add beneficiary and transaction sheets
 class UserActions {
+  /// Shows a modal bottom sheet containing the `AddBeneficiarySheet`
   void showAddBeneficiarySheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -24,6 +26,7 @@ class UserActions {
     );
   }
 
+  /// Shows a modal bottom sheet containing the `TransactionSheet`
   void showTransactionSheet(BuildContext context, Beneficiary beneficiary) {
     showModalBottomSheet(
       context: context,

@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 
+/// Transaction DTO
 class Transaction extends Equatable {
   const Transaction({
     this.id = -1,
@@ -8,16 +9,29 @@ class Transaction extends Equatable {
     required this.targetUserPhoneNumber,
     required this.dateTime,
   });
+
+  /// Transaction ID
   final int id;
+
+  /// Transaction amount
   final double amount;
+
+  /// Transaction sender user ID
   final int sourceUserId;
+
+  /// Transaction target user phone number
   final String targetUserPhoneNumber;
+
+  /// Transaction creation date
   final DateTime dateTime;
 
   @override
   List<Object?> get props => [id, amount, sourceUserId, targetUserPhoneNumber];
 }
 
+/// An extension on `Transaction` to create a new instance with change
+/// If a parameter is passed, it will be used
+/// Otherwise the current instance parameter is used
 extension UserEntityExtensions on Transaction {
   Transaction copyWith({
     int? id,

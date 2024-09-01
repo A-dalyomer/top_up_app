@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:uae_top_up/src/core/constants/const_configs.dart';
 import 'package:uae_top_up/src/core/util/dialogs.dart';
 import 'package:uae_top_up/src/feature/configuration/domain/entity/app_config.dart';
 import 'package:uae_top_up/src/feature/localization/domain/util/app_localizations.dart';
@@ -9,10 +10,15 @@ import 'package:uae_top_up/src/feature/user_management/domain/entity/beneficiary
 
 import '../entity/user.dart';
 
+/// Transaction making checks
+/// Handles checking the transaction restrictions depending on current user info
+/// and the related beneficiary
 class TransactionChecks {
   TransactionChecks({required this.dialogs});
   final Dialogs dialogs;
 
+  /// Checks all the possibilities
+  /// returns true in case the transaction is possible
   bool checkTransactionPossible(
     BuildContext context, {
     required TransactionModel transaction,
@@ -63,6 +69,7 @@ class TransactionChecks {
     return true;
   }
 
+  /// Checks if then user have enough balance in his account
   bool checkEnoughBalance({
     required double userBalance,
     required double transactionAmount,
@@ -74,6 +81,9 @@ class TransactionChecks {
     return true;
   }
 
+  /// Checks if user exceeded his monthly max transactions amount
+  /// the max transaction amount is provided by [appConfig]
+  /// returns true if used did exceed the limit
   bool checkExceedsMonthTransactions(
     Transaction transaction, {
     required List<Transaction> savedUserTransaction,
@@ -88,6 +98,8 @@ class TransactionChecks {
     return false;
   }
 
+  /// Calculates the user's total transactions of passed [transactionDateMonth]
+  /// Only the transactions of the same month and year of the date is calculated
   double getTotalUserMonthTransactions(
     List<Transaction> savedUserTransaction,
     DateTime transactionDateMonth,
@@ -102,6 +114,10 @@ class TransactionChecks {
     return totalMonthTransactions;
   }
 
+  /// Checks if user exceeded his monthly transactions amount for this beneficiary
+  /// the max beneficiary transaction amount is provided by [appConfig]
+  /// The max value takes used verification status into account
+  /// returns true if used did exceed the limit
   bool checkExceedsBeneficiaryTransactions(
     Transaction transaction, {
     required List<Beneficiary> savedUserBeneficiaries,
@@ -125,6 +141,9 @@ class TransactionChecks {
     return false;
   }
 
+  /// Calculates the user's current month total transactions for the
+  /// beneficiary with the passed [targetUserPhoneNumber]
+  /// Only the transactions of the same month and year of the date is calculated
   double getTotalBeneficiaryTransactions({
     required String targetUserPhoneNumber,
     required DateTime transactionDateMonth,
@@ -147,6 +166,10 @@ class TransactionChecks {
     return totalBeneficiaryMonthTransactions;
   }
 
+  /// Returns the error message to be shown to the user
+  /// in case the [checkExceedsBeneficiaryTransactions] returned true
+  /// Useful for the case of user is still able to make a transaction
+  /// for the target phone number but with a lower transaction amount
   String handleBeneficiaryMaxTransaction({
     required String targetUserPhoneNumber,
     required DateTime dateTime,
@@ -170,7 +193,7 @@ class TransactionChecks {
     }
 
     late final String beneficiaryLimitMessage;
-    if (availableAmount < 5) {
+    if (availableAmount < ConstConfigs.transactionOptions.first) {
       beneficiaryLimitMessage = AppLocalizations.beneficiaryMaxReached.tr();
     } else {
       beneficiaryLimitMessage = AppLocalizations.beneficiaryMaxAmount.tr(

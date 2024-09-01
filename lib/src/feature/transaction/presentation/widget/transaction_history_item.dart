@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../domain/entity/transaction.dart';
 
+/// The item shown in `TransactionHistoryList` to show the transaction details
 class TransactionHistoryItem extends StatelessWidget {
   const TransactionHistoryItem({super.key, required this.transaction});
   final Transaction transaction;

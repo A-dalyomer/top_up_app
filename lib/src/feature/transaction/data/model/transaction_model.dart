@@ -1,5 +1,6 @@
 import '../../domain/entity/transaction.dart';
 
+/// Data model for [Transaction]
 class TransactionModel extends Transaction {
   const TransactionModel({
     required super.id,
@@ -9,6 +10,7 @@ class TransactionModel extends Transaction {
     required super.dateTime,
   });
 
+  /// A factory that parses the [json] to a model object instance
   factory TransactionModel.fromJson(Map<String, dynamic> json) {
     return TransactionModel(
       id: json['id'],
@@ -21,6 +23,7 @@ class TransactionModel extends Transaction {
     );
   }
 
+  /// A factory that parses the [Transaction] entity to a model object instance
   factory TransactionModel.fromEntity(Transaction transaction) {
     return TransactionModel(
       id: transaction.id,
@@ -31,6 +34,7 @@ class TransactionModel extends Transaction {
     );
   }
 
+  /// Converts instance to a json map
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> json = {};
     json['id'] = id;

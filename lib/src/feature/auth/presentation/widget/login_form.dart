@@ -8,6 +8,7 @@ import 'package:uae_top_up/src/core/widget/phone_number_field.dart';
 import 'package:uae_top_up/src/feature/auth/presentation/provider/login_provider.dart';
 import 'package:uae_top_up/src/feature/localization/domain/util/app_localizations.dart';
 
+/// User login form containing phone number and password form fields
 class LoginForm extends StatelessWidget {
   const LoginForm({
     super.key,

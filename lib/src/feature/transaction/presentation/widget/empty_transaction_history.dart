@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:uae_top_up/src/core/extension/size_extensions.dart';
 import 'package:uae_top_up/src/feature/localization/domain/util/app_localizations.dart';
 
+/// Empty transactions list widget
+/// Contains an icon and text of empty transactions list
 class EmptyTransactionHistory extends StatelessWidget {
   const EmptyTransactionHistory({super.key});
 

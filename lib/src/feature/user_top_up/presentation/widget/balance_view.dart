@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:uae_top_up/src/feature/localization/domain/util/app_localizations.dart';
 import 'package:uae_top_up/src/feature/user_management/presentation/provider/user_management_provider.dart';
 
+/// Shows current user balance with a current balance text
+/// Current balance is provided from user provider of context
 class BalanceView extends StatelessWidget {
   const BalanceView({super.key});
 

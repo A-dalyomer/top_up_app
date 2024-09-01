@@ -1,3 +1,5 @@
+/// Constant app's localization keys
+/// Each one represents a key from the localization files
 class AppLocalizations {
   static String localizationKey = "localization_key";
   static String languageCode = "language_code";

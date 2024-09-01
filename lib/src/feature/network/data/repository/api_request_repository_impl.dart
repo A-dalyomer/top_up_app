@@ -6,12 +6,17 @@ import 'package:uae_top_up/src/feature/network/data/constants/const_api_paths.da
 import '../../domain/repository/api_request_repository.dart';
 import '../../domain/util/api_general_handler.dart';
 
+/// Implementation of `ApiRequestRepository` using [http.Client]
 class ApiRequestRepositoryImpl implements ApiRequestRepository {
   ApiRequestRepositoryImpl({
     required this.apiClient,
     required this.apiRequestHandlers,
   });
+
+  /// The API client
   final http.Client apiClient;
+
+  /// The API request errors handler
   final APIRequestHandlers apiRequestHandlers;
 
   @override
@@ -46,6 +51,7 @@ class ApiRequestRepositoryImpl implements ApiRequestRepository {
     );
   }
 
+  /// Make the passed API [request] and handle any errors
   Future<Map<String, dynamic>?> _makeRequest({
     required Future<http.Response> Function() request,
     required Function(int)? requestCodesHandler,

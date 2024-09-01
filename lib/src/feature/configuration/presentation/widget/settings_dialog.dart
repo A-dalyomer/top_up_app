@@ -9,19 +9,26 @@ import 'package:uae_top_up/src/feature/localization/domain/util/app_localization
 import '../../../user_management/presentation/provider/user_management_provider.dart';
 import '../../../configuration/presentation/widget/settings_item.dart';
 
+/// App settings dialog
+/// Contains settings for theme mode, language and sign out user
 class SettingsDialog extends StatelessWidget {
   const SettingsDialog({super.key, this.testMode = false});
+
+  /// Used for unit tests as a workaround using the context.locale
   final bool testMode;
 
+  /// Change active locale with the passed [locale]
   void changeLanguage(BuildContext context, Locale locale) {
     context.setLocale(locale);
   }
 
+  /// Closes the dialog and sign out the current user from user provider of context
   void signOut(BuildContext context) {
     Navigator.pop(context);
     context.read<UserManagementProvider>().signOutUser();
   }
 
+  /// Toggle app active theme mode from [settingsProvider]
   toggleTheme(SettingsProvider settingsProvider) =>
       settingsProvider.toggleDarkMode();
 

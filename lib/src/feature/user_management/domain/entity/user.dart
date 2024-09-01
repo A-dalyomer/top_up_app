@@ -3,6 +3,7 @@ import 'package:uae_top_up/src/feature/transaction/domain/entity/transaction.dar
 
 import 'beneficiary.dart';
 
+/// User DTO
 class User extends Equatable {
   const User({
     required this.id,
@@ -14,13 +15,29 @@ class User extends Equatable {
     required this.beneficiaries,
     required this.transactions,
   });
+
+  /// User ID
   final int id;
+
+  /// User name
   final String name;
+
+  /// User phone number
   final String phoneNumber;
+
+  /// User verification state 'verification flag'
   final bool isVerified;
+
+  /// User balance
   final double balance;
+
+  /// User monthly top ups
   final double monthlyTopUps;
+
+  /// User registered beneficiaries list
   final List<Beneficiary> beneficiaries;
+
+  /// User saved transactions list
   final List<Transaction> transactions;
 
   @override
@@ -36,6 +53,9 @@ class User extends Equatable {
       ];
 }
 
+/// An extension on `User` to create a new instance with change
+/// If a parameter is passed, it will be used
+/// Otherwise the current instance parameter is used
 extension UserEntityExtensions on User {
   User copyWith({
     int? id,

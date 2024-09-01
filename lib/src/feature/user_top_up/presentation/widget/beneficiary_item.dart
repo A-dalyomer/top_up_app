@@ -4,13 +4,18 @@ import 'package:uae_top_up/src/core/widget/action_button.dart';
 import 'package:uae_top_up/src/feature/localization/domain/util/app_localizations.dart';
 import 'package:uae_top_up/src/feature/user_management/domain/entity/beneficiary.dart';
 
+/// The item shown in `BeneficiariesListView` to show the beneficiary details
 class BeneficiaryItem extends StatelessWidget {
   const BeneficiaryItem({
     super.key,
     required this.beneficiary,
     required this.onButtonTap,
   });
+
+  /// Beneficiary info
   final Beneficiary beneficiary;
+
+  /// On recharge button press
   final VoidCallback onButtonTap;
 
   @override

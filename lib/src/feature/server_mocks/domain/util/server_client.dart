@@ -18,13 +18,18 @@ import 'package:uae_top_up/src/feature/user_management/domain/util/transaction_c
 
 import '../../../network/data/constants/const_api_paths.dart';
 
+/// HTTP client Utils
+/// Holds the mock instance creation and the mock calls handler
 class ServerClient {
   ServerClient({required this.localStorage});
 
+  /// The mock HTTP client
   MockClient mockClient() {
     return MockClient(handler);
   }
 
+  /// Local storage instance
+  /// Used for saving and loading client data from local storage
   final LocalStorageRepository localStorage;
   Future<http.Response> handler(request) async {
     if (kDebugMode) {

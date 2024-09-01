@@ -7,6 +7,7 @@ import 'package:uae_top_up/src/core/widget/api_action_button.dart';
 import 'package:uae_top_up/src/feature/localization/domain/util/app_localizations.dart';
 import 'package:uae_top_up/src/feature/user_management/domain/entity/beneficiary.dart';
 
+/// Make transaction bottom sheet content widget
 class TransactionSheet extends StatefulWidget {
   const TransactionSheet({
     super.key,
@@ -21,9 +22,15 @@ class TransactionSheet extends StatefulWidget {
 }
 
 class _TransactionSheetState extends State<TransactionSheet> {
+  /// Current selected transaction option index
   int selectedIndex = 0;
+
+  /// API Screen current state
   ApiScreenStates screenStates = ApiScreenStates.done;
 
+  /// Performs the recharging operation with the selected transaction option
+  /// Updates [screenStates] depending on result of [widget.onRechargePress]
+  /// Closes the bottom sheet if transaction succeeded
   void recharge(int amount) async {
     setState(() => screenStates = ApiScreenStates.loading);
     bool transactionMade = await widget.onRechargePress(amount.toDouble());

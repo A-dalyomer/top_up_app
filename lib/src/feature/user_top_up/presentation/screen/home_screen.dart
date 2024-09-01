@@ -11,9 +11,17 @@ import 'package:uae_top_up/src/feature/transaction/presentation/widget/transacti
 
 import '../widget/add_beneficiary_button.dart';
 
+/// App home screen for a logged in user
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key, required this.dialogs});
+
+  /// Dialogs instance
+  /// User to show the settings dialog on settings button press
   final Dialogs dialogs;
+
+  void showSettings(BuildContext context) {
+    dialogs.showWidgetDialog(context, (context) => const SettingsDialog());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,10 +43,7 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           IconButton(
-            onPressed: () => dialogs.showWidgetDialog(
-              context,
-              (context) => const SettingsDialog(),
-            ),
+            onPressed: () => showSettings(context),
             icon: Icon(
               Icons.settings,
               color: Theme.of(context)

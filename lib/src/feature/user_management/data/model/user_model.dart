@@ -3,6 +3,7 @@ import 'package:uae_top_up/src/feature/transaction/data/model/transaction_model.
 import '../../domain/entity/user.dart';
 import 'beneficiary_model.dart';
 
+/// Data model for [User]
 class UserModel extends User {
   const UserModel({
     required super.id,
@@ -14,6 +15,8 @@ class UserModel extends User {
     required super.beneficiaries,
     required super.transactions,
   });
+
+  /// A factory that parses the [json] to a model object instance
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
       id: json['id'],
@@ -31,6 +34,7 @@ class UserModel extends User {
     );
   }
 
+  /// A factory that parses the [User] entity to a model object instance
   factory UserModel.fromEntity(User user) {
     return UserModel(
       id: user.id,
@@ -44,6 +48,7 @@ class UserModel extends User {
     );
   }
 
+  /// Converts instance to a json map
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> json = {};
     json['id'] = id;

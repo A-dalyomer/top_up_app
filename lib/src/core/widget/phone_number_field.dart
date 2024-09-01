@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:uae_top_up/src/core/constants/const_widget_keys.dart';
 
+/// International phone number field widget with custom app configuration
 class PhoneNumberField extends StatelessWidget {
   const PhoneNumberField({super.key, this.onChanged, required this.enabled});
   final Function(PhoneNumber)? onChanged;
