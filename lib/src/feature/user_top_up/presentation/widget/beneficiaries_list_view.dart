@@ -31,11 +31,9 @@ class _BeneficiariesListViewState extends State<BeneficiariesListView> {
 
   @override
   Widget build(BuildContext context) {
-    return Selector<UserManagementProvider, int>(
-      selector: (context, provider) => provider.user.beneficiaries.length,
-      builder: (context, savedBeneficiariesLength, child) {
-        final savedBeneficiaries =
-            context.read<UserManagementProvider>().user.beneficiaries;
+    return Selector<UserManagementProvider, List<Beneficiary>>(
+      selector: (context, provider) => provider.user.beneficiaries,
+      builder: (context, savedBeneficiaries, child) {
         if (scrollController.hasClients) {
           scrollController.animateTo(
             0,
