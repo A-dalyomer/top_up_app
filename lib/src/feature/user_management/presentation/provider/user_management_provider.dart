@@ -164,7 +164,7 @@ class UserManagementProvider extends ChangeNotifier {
     if (!canMakeTransaction) return false;
 
     /// Debit user balance before the top-up transaction is attempted
-    debitUserBalance(amount + appConfig.transactionFee);
+    await debitUserBalance(amount + appConfig.transactionFee);
 
     /// Make the transaction request
     TransactionModel? newTransaction =
@@ -184,13 +184,13 @@ class UserManagementProvider extends ChangeNotifier {
       /// Transaction request failed due to connection or server exception
       /// The error message should be show from the API repository
       /// Return user debited balance
-      debitUserBalance(-(amount + appConfig.transactionFee));
+      await debitUserBalance(-(amount + appConfig.transactionFee));
     }
     return newTransaction != null;
   }
 
   /// Edit local user balance
-  void debitUserBalance(double amount) async {
+  Future<void> debitUserBalance(double amount) async {
     final newUser = user.copyWith(balance: user.balance - amount);
     await updateUser(newUser);
   }
