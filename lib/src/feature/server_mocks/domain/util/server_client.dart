@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/testing.dart';
 import 'package:http/http.dart' as http;
+import 'package:uae_top_up/src/core/constants/const_configs.dart';
 import 'package:uae_top_up/src/core/util/dialogs.dart';
 import 'package:uae_top_up/src/feature/configuration/data/app_config_model.dart';
 import 'package:uae_top_up/src/feature/configuration/domain/entity/app_config.dart';
@@ -277,8 +278,8 @@ class ServerClient {
       id: savedUsers.length,
       name: phoneNumber.toString(),
       phoneNumber: phoneNumber,
-      isVerified: true,
-      balance: 4000,
+      isVerified: ConstConfigs.userVerified,
+      balance: ConstConfigs.userInitialBalance,
       monthlyTopUps: 0,
       beneficiaries: const [],
       transactions: const [],
