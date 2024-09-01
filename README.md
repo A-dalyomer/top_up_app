@@ -61,6 +61,11 @@ This Flutter application allows users to top up UAE phone numbers with credit fo
 - Conducted code cleanup and final checkups with the requirements.
 - Added general project documentation.
 
+### 7. Additional notes
+- An API token can be easily added now through an interceptor or even directly in 'ApiRequestRepository'
+- We can also apply a global requests encryption algorithm through the 'ApiRequestRepository' since it handles every request in the app
+- To change the user verification flag, user initial balance and recharge options, head to [Configs](/lib/src/core/constants/const_configs.dart).
+
 ## Github repo
 
 The project is uploaded to a private repository on [Github link](https://github.com/A-dalyomer/top_up_app.git).
