@@ -37,9 +37,12 @@ class DIManager {
       ServerClient(localStorage: getIt<LocalStorageRepository>()).mockClient(),
     );
 
+    /// Dialogs singleton
+    GetIt.instance.registerSingleton<Dialogs>(Dialogs());
+
     /// API Request error handlers singleton
     GetIt.instance.registerSingleton<APIRequestHandlers>(
-      APIRequestHandlers(),
+      APIRequestHandlers(dialogs: getIt<Dialogs>()),
     );
 
     /// API request repository singleton
@@ -49,9 +52,6 @@ class DIManager {
         apiRequestHandlers: getIt<APIRequestHandlers>(),
       ),
     );
-
-    /// Dialogs singleton
-    GetIt.instance.registerSingleton<Dialogs>(Dialogs());
 
     /// User actions singleton
     GetIt.instance.registerSingleton<UserActions>(UserActions());

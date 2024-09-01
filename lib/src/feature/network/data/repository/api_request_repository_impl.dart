@@ -30,7 +30,7 @@ class ApiRequestRepositoryImpl implements ApiRequestRepository {
         Uri.parse(ConstApiPaths.domainLink + apiPath),
         headers: headers,
       ),
-      requestCodesHandler: (code) => requestCodesHandler?.call(code),
+      requestCodesHandler: requestCodesHandler,
     );
   }
 
@@ -47,7 +47,7 @@ class ApiRequestRepositoryImpl implements ApiRequestRepository {
         headers: headers,
         body: jsonEncode(body),
       ),
-      requestCodesHandler: (code) => requestCodesHandler?.call(code),
+      requestCodesHandler: requestCodesHandler,
     );
   }
 

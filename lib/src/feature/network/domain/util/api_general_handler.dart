@@ -1,8 +1,18 @@
+import 'dart:convert';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
+import 'package:uae_top_up/src/core/util/dialogs.dart';
+import 'package:uae_top_up/top_up_app.dart';
 
 /// API errors handler for `APIRequestsRepositoryImpl`
 class APIRequestHandlers {
+  APIRequestHandlers({required this.dialogs});
+
+  /// Dialogs instance to show dialogs
+  final Dialogs dialogs;
+
   /// General request errors handler for responses status code other than 200
   void requestException(http.Response response) {
     if (kDebugMode) {
@@ -12,6 +22,13 @@ class APIRequestHandlers {
       default:
         if (kDebugMode) {
           print("unknown status code: ${response.statusCode}");
+        }
+        final BuildContext? context = globalNavigatorKey.currentState?.context;
+        if (context?.mounted ?? false) {
+          dialogs.showMessageDialog(
+            context!,
+            jsonDecode(response.body)['message'],
+          );
         }
     }
     _logAnalyticsEvent();

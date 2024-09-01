@@ -15,6 +15,9 @@ import 'src/feature/configuration/domain/entity/app_config.dart';
 import 'src/feature/configuration/domain/util/core_config_manager.dart';
 import 'src/feature/user_management/presentation/provider/user_management_provider.dart';
 
+final GlobalKey<NavigatorState> globalNavigatorKey =
+    GlobalKey<NavigatorState>();
+
 /// The root app UI widget
 class TopUpApp extends StatefulWidget {
   const TopUpApp({super.key});
@@ -27,6 +30,7 @@ class _TopUpAppState extends State<TopUpApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: globalNavigatorKey,
       title: AppLocalizations.appName.tr(),
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,

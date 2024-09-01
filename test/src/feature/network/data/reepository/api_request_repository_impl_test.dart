@@ -5,6 +5,7 @@ import 'package:http/http.dart';
 import 'package:http/testing.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:uae_top_up/src/core/util/dialogs.dart';
 import 'package:uae_top_up/src/feature/configuration/data/app_config_model.dart';
 import 'package:uae_top_up/src/feature/configuration/domain/entity/app_config.dart';
 import 'package:uae_top_up/src/feature/network/data/constants/const_api_paths.dart';
@@ -27,7 +28,7 @@ void main() {
 
   setUp(() {
     mockServerClient = MockServerClient();
-    handlers = APIRequestHandlers();
+    handlers = APIRequestHandlers(dialogs: Dialogs());
     when(mockServerClient.mockClient()).thenReturn(MockClient(
       (request) async {
         if (request.method == "POST") {
