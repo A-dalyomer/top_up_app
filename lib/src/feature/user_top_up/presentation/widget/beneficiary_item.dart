@@ -72,7 +72,6 @@ class _BeneficiaryItemState extends State<BeneficiaryItem> {
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
                           color: Theme.of(context).colorScheme.primary,
                         ),
-                    maxLines: 2,
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
                   ),
