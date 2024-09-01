@@ -29,8 +29,7 @@ class AddBeneficiaryButton extends StatelessWidget {
         final AppConfig appConfig =
             context.read<CoreConfigManager>().appConfig!;
 
-        /// TODO: fix the limit condition
-        if (beneficiariesCount > appConfig.maxActiveBeneficiaries) {
+        if (beneficiariesCount >= appConfig.maxActiveBeneficiaries) {
           return const SizedBox.shrink();
         }
         return ActionButton(
