@@ -261,7 +261,7 @@ class UserManagementProvider extends ChangeNotifier {
     required TransactionModel newTransaction,
   }) {
     final List<Transaction> updatedBeneficiaryTransactions = List.from([
-      ...user.transactions,
+      ...beneficiary.transactions,
       newTransaction,
     ]);
     final updatedBeneficiary = beneficiary.copyWith(
