@@ -43,7 +43,7 @@ class TransactionChecks {
     if (exceedsMonthTransactions) {
       dialogs.showMessageDialog(
         context,
-        AppLocalizations.transactionMaxMonthAmount,
+        AppLocalizations.transactionMaxMonthAmount.tr(),
       );
       return false;
     }
