@@ -118,18 +118,22 @@ class ServerClient {
     final senderUser = savedUsers.singleWhere(
       (element) => element.phoneNumber == senderPhoneNumber,
     );
+    if (senderUser.beneficiaries
+        .where(
+          (element) => element.phoneNumber == phoneNumber,
+        )
+        .isNotEmpty) {
+      return http.Response(
+        jsonEncode({"message": "Already exists"}),
+        409,
+      );
+    }
     BeneficiaryModel newBeneficiary = BeneficiaryModel(
       name: beneficiaryName,
       phoneNumber: phoneNumber,
       transactions: const [],
       id: senderUser.beneficiaries.length,
     );
-    if (senderUser.beneficiaries.contains(newBeneficiary)) {
-      return http.Response(
-        jsonEncode({"message": "Already exists"}),
-        409,
-      );
-    }
     senderUser.beneficiaries.add(newBeneficiary);
     await saveUsers(savedUsers);
     return http.Response(
