@@ -9,6 +9,7 @@ class BeneficiaryModel extends Beneficiary {
     required super.name,
     required super.phoneNumber,
     required super.transactions,
+    super.active = true,
   });
 
   /// A factory that parses the [json] to a model object instance
@@ -20,6 +21,7 @@ class BeneficiaryModel extends Beneficiary {
       transactions: List.from(json['transactions'])
           .map((transactionMap) => TransactionModel.fromJson(transactionMap))
           .toList(),
+      active: json['active'] ?? true,
     );
   }
 
@@ -30,6 +32,7 @@ class BeneficiaryModel extends Beneficiary {
       name: beneficiary.name,
       phoneNumber: beneficiary.phoneNumber,
       transactions: beneficiary.transactions,
+      active: beneficiary.active,
     );
   }
 
@@ -40,6 +43,7 @@ class BeneficiaryModel extends Beneficiary {
     json['name'] = name;
     json['phone_number'] = phoneNumber;
     json['transactions'] = transactions;
+    json['active'] = active;
     return json;
   }
 }
