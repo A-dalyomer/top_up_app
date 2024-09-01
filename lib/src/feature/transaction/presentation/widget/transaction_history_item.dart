@@ -12,6 +12,7 @@ class TransactionHistoryItem extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).cardColor,
+        borderRadius: BorderRadius.circular(8),
         boxShadow: [
           BoxShadow(
             color: Theme.of(context).colorScheme.shadow,

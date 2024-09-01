@@ -56,22 +56,19 @@ class HomeScreen extends StatelessWidget {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: CustomScrollView(
-          slivers: [
-            SliverList(
-              delegate: SliverChildListDelegate(
-                [
-                  const BalanceView(),
-                  const BeneficiariesListView(),
-                  const AddBeneficiaryButton(),
-                ],
-              ),
-            ),
-            const SliverFillRemaining(
-              child: TransactionHistoryList(),
-            ),
-          ],
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: NestedScrollView(
+          headerSliverBuilder: (context, innerBoxIsScrolled) {
+            return [
+              SliverList(
+                  delegate: SliverChildListDelegate([
+                const BalanceView(),
+                const BeneficiariesListView(),
+                const AddBeneficiaryButton(),
+              ])),
+            ];
+          },
+          body: const TransactionHistoryList(),
         ),
       ),
     );
