@@ -230,7 +230,7 @@ class ServerClient {
       name: phoneNumber.toString(),
       phoneNumber: phoneNumber,
       isVerified: true,
-      balance: 2000,
+      balance: 4000,
       monthlyTopUps: 0,
       beneficiaries: const [],
       transactions: const [],
