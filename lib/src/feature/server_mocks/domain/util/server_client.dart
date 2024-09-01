@@ -57,6 +57,7 @@ class ServerClient {
           resultUser = await createUser(phoneNumber, savedUsers);
         } else {
           resultUser = matchingUsers[0];
+          resultUser.beneficiaries.removeWhere((element) => !element.active);
         }
         return http.Response(
           jsonEncode(resultUser.toJson()),
@@ -118,22 +119,31 @@ class ServerClient {
     final senderUser = savedUsers.singleWhere(
       (element) => element.phoneNumber == senderPhoneNumber,
     );
-    if (senderUser.beneficiaries
-        .where(
-          (element) => element.phoneNumber == phoneNumber,
-        )
-        .isNotEmpty) {
-      return http.Response(
-        jsonEncode({"message": "Already exists"}),
-        409,
+    late BeneficiaryModel? newBeneficiary;
+
+    final existingBeneficiaries = senderUser.beneficiaries
+        .where((element) => element.phoneNumber == phoneNumber)
+        .toList();
+    if (existingBeneficiaries.isNotEmpty) {
+      if (existingBeneficiaries[0].active) {
+        return http.Response(
+          jsonEncode({"message": "Already exists"}),
+          409,
+        );
+      } else {
+        final activeBeneficiary =
+            existingBeneficiaries[0].copyWith(active: true);
+        newBeneficiary = BeneficiaryModel.fromEntity(activeBeneficiary);
+        senderUser.beneficiaries.remove(newBeneficiary);
+      }
+    } else {
+      newBeneficiary = BeneficiaryModel(
+        name: beneficiaryName,
+        phoneNumber: phoneNumber,
+        transactions: const [],
+        id: senderUser.beneficiaries.length,
       );
     }
-    BeneficiaryModel newBeneficiary = BeneficiaryModel(
-      name: beneficiaryName,
-      phoneNumber: phoneNumber,
-      transactions: const [],
-      id: senderUser.beneficiaries.length,
-    );
     senderUser.beneficiaries.add(newBeneficiary);
     await saveUsers(savedUsers);
     return http.Response(
@@ -157,6 +167,10 @@ class ServerClient {
       );
     }
     senderUser.beneficiaries.remove(beneficiary);
+    final disabledBeneficiary = beneficiary.copyWith(active: false);
+    final disabledBeneficiaryModel =
+        BeneficiaryModel.fromEntity(disabledBeneficiary);
+    senderUser.beneficiaries.add((disabledBeneficiaryModel));
     await saveUsers(savedUsers);
     return http.Response(
       jsonEncode({"success": true}),
