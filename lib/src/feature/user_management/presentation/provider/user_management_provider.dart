@@ -106,7 +106,7 @@ class UserManagementProvider extends ChangeNotifier {
   /// to the [maxActiveBeneficiaries] in the passed [appConfig]
   /// returns true if user can add a beneficiary
   bool checkAddBeneficiaryPossible(AppConfig appConfig) {
-    if (user.beneficiaries.length > appConfig.maxActiveBeneficiaries) {
+    if (user.beneficiaries.length >= appConfig.maxActiveBeneficiaries) {
       return false;
     }
     return true;
