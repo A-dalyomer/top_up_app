@@ -24,6 +24,7 @@ class PhoneNumberField extends StatelessWidget {
         trailingSpace: false,
       ),
       initialValue: PhoneNumber(isoCode: "AE"),
+      countries: const ['AE'],
       autoValidateMode: AutovalidateMode.onUserInteraction,
     );
   }
