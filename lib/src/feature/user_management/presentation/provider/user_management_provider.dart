@@ -190,10 +190,9 @@ class UserManagementProvider extends ChangeNotifier {
   }
 
   /// Edit local user balance
-  void debitUserBalance(double amount) {
-    /// TODO: save user info to local storage after editing too
-    user = user.copyWith(balance: user.balance - amount);
-    notifyListeners();
+  void debitUserBalance(double amount) async {
+    final newUser = user.copyWith(balance: user.balance - amount);
+    await updateUser(newUser);
   }
 
   /// Update local beneficiaries list by adding the passed [newBeneficiary]
