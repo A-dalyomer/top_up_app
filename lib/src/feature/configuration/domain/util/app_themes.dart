@@ -8,7 +8,7 @@ class AppThemes {
       scaffoldBackgroundColor: Colors.white,
       colorScheme: ColorScheme.fromSeed(
         seedColor: Colors.deepPurple,
-        shadow: Colors.redAccent.withOpacity(0.1),
+        shadow: Colors.redAccent.withOpacity(0.3),
       ),
       useMaterial3: true,
       inputDecorationTheme: InputDecorationTheme(
