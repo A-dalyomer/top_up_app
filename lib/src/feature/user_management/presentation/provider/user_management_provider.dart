@@ -243,6 +243,7 @@ class UserManagementProvider extends ChangeNotifier {
       beneficiary,
       newTransaction: newTransaction,
     );
+    user.beneficiaries.removeWhere((element) => element == beneficiary);
     user = user.copyWith(
       transactions: updatedTransactions,
       beneficiaries: [
