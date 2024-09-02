@@ -35,7 +35,7 @@ class _BeneficiaryItemState extends State<BeneficiaryItem> {
   void deleteBeneficiary() async {
     setState(() => loading = true);
     await widget.onDeleteTap(widget.beneficiary);
-    setState(() => loading = true);
+    setState(() => loading = false);
   }
 
   @override
